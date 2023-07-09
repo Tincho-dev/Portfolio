@@ -62,3 +62,92 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+/*Estilos componenete de simulacion*/
+
+footer {
+    background-color: white;
+    width: 100%;
+    border: 3px solid black; /* Estilo de borde deseado */
+    border-radius: 10px; /* Opcional: añade esquinas redondeadas al borde */
+    margin-top: auto !important;
+}
+
+#app {
+    min-height: 100vh !important;
+}
+
+.contenedor_Datos {
+    border: 3px solid black;
+    border-radius: 20px;
+    background-color: white;
+    transition: all 0.3s;
+}
+
+    .contenedor_Datos:hover {
+        transform: scale(1.01);
+    }
+
+.contenedor_Tabla {
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 20px;
+    transition: all 0.3s;
+    height: 502px; /* Establece la altura máxima del contenedor */
+    overflow-y: scroll; /* Añade un scroll vertical al contenedor */
+    align-items: center !important; /* Centra verticalmente los elementos dentro del contenedor */
+    justify-content: center !important; /* Centra horizontalmente los elementos dentro del contenedor */
+}
+
+    .contenedor_Tabla:hover {
+        transform: scale(1.01);
+    }
+
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.comment-bubble {
+    position: absolute;
+    background-color: rgba(241, 241, 241, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    transform: translate(-50%, -50%);
+}
+
+    .comment-bubble:hover {
+        background-color: #f1f1f1;
+    }
+
+.comment-MF {
+    top: 75%; /* Posición vertical del globo */
+    left: 40%; /* Posición horizontal del globo */
+}
+
+.comment-RR {
+    top: 25%; /* Posición vertical del globo */
+    left: 82%; /* Posición horizontal del globo */
+}
+
+.contenedorRespuesta {
+    display: block;
+    transition: 0.3s ease all;
+}
+
+.contenedorfuncion {
+    border: 3px solid black;
+    border-radius: 20px;
+    background-color: white;
+    transition: all 0.3s;
+}
+
+.input-fecha {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    text-align: center;
+    pointer-events: none;
+}

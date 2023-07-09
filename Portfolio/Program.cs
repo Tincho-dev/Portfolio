@@ -15,6 +15,8 @@ builder.Services.AddDbContext<EntropiaContext>(options => options.UseInMemoryDat
 builder.Services.AddScoped<IFuenteService, FuenteService>();
 builder.Services.AddSingleton<IGeneradorService, GeneradorService>();
 builder.Services.AddSingleton<IPruebasEstadisticasService, PruebasEstadisticasService>();
+builder.Services.AddSingleton<IDistribucionesService, DistribucionesService>();
+builder.Services.AddSingleton<ISimuladorColasEsperaService, SimuladorColasEsperaService>();
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<TooltipService>();
