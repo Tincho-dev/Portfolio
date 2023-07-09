@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Numeros Aleatorios\" />
+    <Compile Remove="Numeros Aleatorios\**" />
+    <EmbeddedResource Remove="Numeros Aleatorios\**" />
+    <None Remove="Numeros Aleatorios\**" />
   </ItemGroup>
 
 </Project>
