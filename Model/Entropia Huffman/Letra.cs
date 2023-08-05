@@ -14,7 +14,7 @@ namespace Models
         [Required]
         public float Probability { get; set; }
         public float Information { get; set; }
-        public string Codigo { get; set; } = string.Empty;
+        public string Code { get; set; } = string.Empty;
         public int FrecuenciaDeAparicion { get; set; }
         public string IdFuente { get; set; }
         [ForeignKey("IdFuente")]

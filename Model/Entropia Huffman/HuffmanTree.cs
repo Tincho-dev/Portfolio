@@ -55,7 +55,7 @@ public class HuffmanTree
             string codigo = "";
             encodedSymbol.ForEach(b => codigo += Convert.ToInt32(b));
             string nombre = source[i].ToString();
-            source[i].Codigo = codigo;
+            source[i].Code = codigo;
         }
         return source;
     }

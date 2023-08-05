@@ -29,34 +29,19 @@ public class Fuente
     }
     #endregion
     #region Entropia
-    public float EntropiaDeLaFuente()
-    {
-        float suma = 0;
-        foreach (Letra letra in Letras)
-        {
-            suma += letra.Probability * (float)(Math.Log(1 / letra.Probability) / Math.Log(2));
-        }
-        return suma;
-    }
+    public float EntropiaDeLaFuente() =>
+        Letras.Sum(letra => letra.Probability * (float)(Math.Log(1 / letra.Probability) / Math.Log(2)));
 
-    public float EntropiaMaxima()
-    {
-        return (float)(Math.Log10(Letras.Count) / Math.Log10(2));
-    }
+    public float EntropiaMaxima() => 
+        (float)(Math.Log10(Letras.Count) / Math.Log10(2));
 
-    public float InformacionDeCadena()
-    {
-        float suma = 0;
-        foreach (Letra letra in Letras)
-        {
-            suma += (float)(Math.Log(1 / letra.Probability) / Math.Log(2));
-        }
-        return suma;
-    }
+    public float InformacionDeCadena() => 
+        (float) Letras.Sum(letra => (Math.Log(1 / letra.Probability) / Math.Log(2)));
+
 
     public List<Letra> StringToListLetra()
     {
-        List<Letra> listaDeLetras = new List<Letra>();
+        List<Letra> listaDeLetras = new();
         if (CadenaFuente != null)
         {
             char[] caracteres = CadenaFuente.ToCharArray();
@@ -82,7 +67,7 @@ public class Fuente
         {
             var codigo = (from l in Letras
                           where (l.Name == simbolo.ToString())
-                          select l.Codigo).Single();
+                          select l.Code).Single();
             codigoFinal += codigo.ToString();
         }
         return codigoFinal;
@@ -95,7 +80,7 @@ public class Fuente
 
         for (int i = 0; i < LetrasArray.Length; i++)
         {
-            LetrasArray[i].Codigo = Convert.ToString(i, 2);
+            LetrasArray[i].Code = Convert.ToString(i, 2);
         }
         Letras = LetrasArray.ToList();
     }
