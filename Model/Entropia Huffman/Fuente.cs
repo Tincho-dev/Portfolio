@@ -75,15 +75,12 @@ public class Fuente
 
     public void EstablecerCodigoACadaLetra()
     {
-        Letras = Letras.OrderByDescending(l => l.Probability).ToList();
-        var LetrasArray = Letras.ToArray();
-
-        for (int i = 0; i < LetrasArray.Length; i++)
-        {
-            LetrasArray[i].Code = Convert.ToString(i, 2);
-        }
-        Letras = LetrasArray.ToList();
+        Letras = Letras
+            .OrderByDescending(l => l.Probability)
+            .Select((l, i) => { l.Code = Convert.ToString(i, 2); return l; })
+            .ToList();
     }
+
     #endregion
     #region Codificacion Huffman
     public void EstablecerCodigoHuffmanACadaLetra()
