@@ -1,5 +1,20 @@
-﻿<h3>AboutMe</h3>
+﻿@inject ProfessionalContext context
+@using  Data;
+@using Model.About
+
+<h3>AboutMe</h3>
+
+@professional.Name
+
+@professional.Contact.City
+
 
 @code {
+    Professional professional { get; set; }
 
+    protected override void OnInitialized()
+    {
+        professional = context.Professionals.FirstOrDefault();
+        base.OnInitialized();
+    }
 }

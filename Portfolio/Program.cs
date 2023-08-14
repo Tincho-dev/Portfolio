@@ -1,4 +1,4 @@
-using EntropiaBlazor.Data;
+using Data;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +12,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddDbContext<EntropiaContext>(options => options.UseInMemoryDatabase("entropiadb"));
+//builder.Services.AddDbContext<ProfessionalContext>(options => options.UseInMemoryDatabase("professionaldb"));
 builder.Services.AddScoped<IFuenteService, FuenteService>();
 builder.Services.AddSingleton<IGeneradorService, GeneradorService>();
 builder.Services.AddSingleton<IPruebasEstadisticasService, PruebasEstadisticasService>();

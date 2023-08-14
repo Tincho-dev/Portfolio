@@ -9,9 +9,10 @@ public partial class Generador
     private int modulo;
     private int totalDeNumerosGenerar;
     private string listaSemillaString;
-    private List<double> numerosGenerados;
+    private List<double>? numerosGenerados;
     private List<string> metodosDisponibles = new List<string> { "ParteCentralDelCuadrado", "Lehmer", "CongruencialMixto", "CongruencialMultiplicativo", "CongruencialAditivo" };
     private string metodoSeleccionado;
+
     private void GenerarNumerosAleatorios()
     {
         numerosGenerados = metodoSeleccionado switch

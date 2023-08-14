@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Models;
 
-namespace EntropiaBlazor.Data;
+namespace Data;
 
 public class EntropiaContext : DbContext
 {
