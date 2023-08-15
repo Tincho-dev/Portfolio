@@ -40,7 +40,7 @@
 @code {
     protected override async Task OnInitializedAsync()
     {
-        await FuenteService.LoadFuentes();
+        await FuenteService.Load();
     }
 
     void ShowFuente(string id)

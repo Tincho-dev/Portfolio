@@ -1,55 +1,28 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Model;
+﻿using Model;
 
-namespace Data
+namespace Services
 {
-    public class ProfessionalContext : DbContext
+    public class ProfessionalServiceInMemory : IProfessionalService
     {
-        public ProfessionalContext(DbContextOptions<ProfessionalContext> options) : base(options)
+        private List<Professional> _professionals { get; set; }
+        private List<Tool> _tools { get; set; }
+
+        private List<Interest> _interests;
+        private List<Skill> _skills;
+        private List<Detail> _details;
+        private List<Experience> _experiences;
+        private List<Training> _trainings;
+
+        public ProfessionalServiceInMemory()
         {
+            Iniciar();
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        private void Iniciar()
         {
-            modelBuilder.Entity<Professional>()
-                .HasOne(p => p.Contact)
-                .WithOne()
-                .HasForeignKey<Professional>(p => p.Id);
-
-
-
-            modelBuilder.Entity<Professional>()
-                .HasMany(p => p.Experiences)
-                .WithOne()
-                .HasForeignKey(e => e.ProfessionalId);
-
-            modelBuilder.Entity<Professional>()
-                .HasMany(p => p.Tools)
-                .WithOne()
-                .HasForeignKey(t => t.ProfessionalId);
-
-            modelBuilder.Entity<Professional>()
-                .HasMany(p => p.Trainings)
-                .WithOne()
-                .HasForeignKey(t => t.ProfessionalId);
-
-            #region Seeds
-            #endregion
-            modelBuilder.Entity<Contact>().HasData(
-                 new Contact
-                 {
-                     Id = 1,
-                     ProfessionalId = 1,
-                     PhoneNumber = "+54 9 381 5500 999",
-                     Email = "martin.lopezrubio@gmail.com",
-                     Github = "https://github.com/Tincho-dev",
-                     LinkedIn = "https://www.linkedin.com/in/martinlopezrubio/",
-                     City = "Tucuman, Argentina"
-                 }
-                );
-
-            modelBuilder.Entity<Tool>().HasData(
-                new Tool
+            _tools = new List<Tool>()
+            {
+                                new Tool
                 {
                     Id = 1,
                     Name = "C#",
@@ -90,9 +63,9 @@ namespace Data
                     Description = "",
                     LogoUrl = "images/GitHub_Logo.png"
                 }
-                );
-
-            modelBuilder.Entity<Interest>().HasData(
+            };
+            _interests = new List<Interest>()
+            {
                 new Interest
                 {
                     Id = 1,
@@ -153,9 +126,8 @@ namespace Data
                     ProfessionalId = 1,
                     Name = "Machine Learning"
                 }
-                );
-
-            modelBuilder.Entity<Skill>().HasData(
+            };
+            _skills = new List<Skill>() {
                 new Skill { Id = 1, Value = "Queries to Entity Framework context using Linq", ExperinceId = 1 },
                 new Skill { Id = 2, Value = "Managing GIT Versions", ExperinceId = 1 },
                 new Skill { Id = 3, Value = "Apply Design Patterns", ExperinceId = 1 },
@@ -176,25 +148,20 @@ namespace Data
                 new Skill { Id = 18, Value = "Tools used: C#, Python (Jupyter Notebook)", ExperinceId = 2 },
                 new Skill { Id = 19, Value = "Investigate about Machine Learning and Deep Learning", ExperinceId = 2 },
                 new Skill { Id = 20, Value = "Teamwork", ExperinceId = 2 },
-                new Skill { Id = 21, Value = "Automate data collection using RESTful APIs and ASP.NET", ExperinceId = 2 }
-                );
-
-            modelBuilder.Entity<Detail>().HasData(
-                new Detail { Id = 1, Value = "English Certificate A1 - A2", ProfessionalId = 1 },
+                new Skill { Id = 21, Value = "Automate data collection using RESTful APIs and ASP.NET", ExperinceId = 2 } };
+            _details = new List<Detail>() { new Detail { Id = 1, Value = "English Certificate A1 - A2", ProfessionalId = 1 },
                 new Detail { Id = 2, Value = "English in Certification Process B1", ProfessionalId = 1 },
                 new Detail { Id = 3, Value = "Basic French learned in secondary as a Foreign Language", ProfessionalId = 1 },
                 new Detail { Id = 4, Value = "Courses Taken on Time Management and Emotional Intelligence", ProfessionalId = 1 },
                 new Detail { Id = 5, Value = "General average in the university of 7.84", ProfessionalId = 1 }
-                );
-
-            modelBuilder.Entity<Experience>().HasData(
-                new Experience
-                {
-                    Id = 1,
-                    Name = "Integrator Final Works",
-                    YearStart = 2019,
-                    Role = "Project Leader - Programmer",
-                },
+            };
+            _experiences = new List<Experience>() { new Experience
+            {
+                Id = 1,
+                Name = "Integrator Final Works",
+                YearStart = 2019,
+                Role = "Project Leader - Programmer",
+            },
                 new Experience
                 {
                     Id = 2,
@@ -203,9 +170,11 @@ namespace Data
                     YearFinish = 2023,
                     Role = "Collection for Data Analysis - Intern",
                 }
-                );
 
-            modelBuilder.Entity<Training>().HasData(
+
+            };
+            _trainings = new List<Training>()
+            {
                 new Training
                 {
                     Id = 1,
@@ -222,9 +191,9 @@ namespace Data
                     Speciality = "English, Software Development and Soft Skills majors",
                     YearStart = 2022
                 }
-                );
-
-            modelBuilder.Entity<Professional>().HasData(
+            };
+            _professionals = new List<Professional>()
+            {
                 new Professional
                 {
                     Id = 1,
@@ -235,17 +204,14 @@ experience in software development. I am looking to collaborate in a
 position as a .Net Developer since I have certified in Fundamentals
 of Entity Framework, Linq and Blazor."
                 }
-            );
+            };
         }
 
-        public DbSet<Professional> Professionals => Set<Professional>();
-        public DbSet<Interest> Interests => Set<Interest>();
-        public DbSet<Category> Categories => Set<Category>();
-        public DbSet<Tool> Tools => Set<Tool>();
-        public DbSet<Experience> Experiences => Set<Experience>();
-        public DbSet<Training> Trainings => Set<Training>();
-        public DbSet<Contact> Contacts => Set<Contact>();
-        public DbSet<Detail> Details => Set<Detail>();
-        public DbSet<Skill> Skills => Set<Skill>();
+
+
+        public async Task<Professional?> GetProfessionalAsync(int id)
+        {
+            return _professionals.FirstOrDefault(p => p.Id == id);
+        }
     }
 }

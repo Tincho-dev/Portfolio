@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Models;
+namespace Model;
 
 public class HuffmanTree
 {

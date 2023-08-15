@@ -1,7 +1,7 @@
 ﻿@page "/Fuente"
 @page "/Fuente/{id}"
-@using Services;
-@inject IFuenteService FuenteService
+@using Controllers;
+@inject FuenteController controller
 
 @if (Id == null)
 {
@@ -38,10 +38,8 @@ else
 @code {
     [Parameter]
     public string? Id { get; set; }
-
     string btnText = string.Empty;
-
-    Models.Fuente fuente = new();
+    Model.Fuente fuente = new();
 
 
     protected override void OnInitialized()
@@ -53,8 +51,8 @@ else
     {
         if (Id != null)
         {
-            fuente = await FuenteService.GetSingleFuente((string) Id);
-            fuente = new Models.Fuente(fuente.CadenaFuente);
+            fuente = await controller.GetSingle((string) Id);
+            fuente = new Model.Fuente(fuente.CadenaFuente);
         }
     }
 
@@ -62,16 +60,28 @@ else
     {
         if (Id == null)
         {
-            await FuenteService.CreateFuente(fuente);
+            await controller.Create(fuente);
         }
         else
         {
-            await FuenteService.UpdateFuente(fuente, (string)Id);
+            await controller.Update(fuente, (string)Id);
         }
+    }
+
+    private void MostrarMensaje(string message)
+    {
+        Console.WriteLine(message);
     }
 
     async Task DeleteFuente()
     {
-        await FuenteService.DeleteFuente(fuente.IdFuente);
+        try
+        {
+            await controller.Delete(fuente.IdFuente);
+        }
+        catch(Exception e)
+        {
+            MostrarMensaje(e.Message);
+        }
     }
 }

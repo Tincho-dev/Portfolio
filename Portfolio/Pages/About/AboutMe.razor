@@ -1,20 +1,29 @@
-﻿@inject ProfessionalContext context
-@using  Data;
-@using Model.About
+﻿@inject IProfessionalService service
+@using  Services;
+@using Model
 
 <h3>AboutMe</h3>
 
-@professional.Name
+    @if(professional == null)
+    {
+<h1>
+        "No se pudo cargar el profesional";
+    </h1>
+}
+else
+{
+    <h1> @professional.Name </h1>
+}
 
-@professional.Contact.City
+@*@professional?.Contact.City*@
 
 
 @code {
-    Professional professional { get; set; }
+    Professional? professional { get; set; }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        professional = context.Professionals.FirstOrDefault();
+        professional = await service.GetProfessionalAsync(1);
         base.OnInitialized();
     }
 }
