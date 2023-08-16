@@ -18,7 +18,7 @@ namespace Model
         void Modificar(T item);
         T Get(int id);
         IEnumerable<T> GetTodos();
-        IEnumerable<T> GetConFiltro(Expression<Func<T, bool>> filtro);
+        IEnumerable<T> Where(Expression<Func<T, bool>> filtro);
         void ConfirmarCambios();
         void DescartarCambios();
         void Refrescar(T item);

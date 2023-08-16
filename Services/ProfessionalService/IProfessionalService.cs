@@ -1,14 +1,15 @@
 ﻿using Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Services
+namespace Services;
+public interface IProfessionalService
 {
-    public interface IProfessionalService
-    {
-        Task<Professional?> GetProfessionalAsync(int id);
-    }
+    Task<Professional?> GetProfessionalAsync(int id);
+    Task<List<Skill>> GetSkillsFromExperienceAsync(int experinceId);
+    Task<List<Detail>> GetAditionalInfoFromProfessionalAsync(int professionalId);
+    Task<List<Experience>> GetExperiencesFromProfessionalAsync(int professionalId);
+    Task<List<Training>> GetTrainingsFromProfessionalAsync(int professionalId);
+    Task<List<Interest>> GetInterestsFromProfessionalAsync(int professionalId);
+    Task<List<Tool>> GetToolsFromProfessionalAsync(int professionalId);
+    Task<Contact> GetContactFromProfessionalAsync(int professionalId);
 }
+

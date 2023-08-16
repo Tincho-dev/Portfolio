@@ -61,7 +61,7 @@ namespace Data
             return GetSet();
         }
 
-        public IEnumerable<T> GetConFiltro(Expression<Func<T, bool>> filtro)
+        public IEnumerable<T> Where(Expression<Func<T, bool>> filtro)
         {
             return GetSet().Where(filtro);
         }

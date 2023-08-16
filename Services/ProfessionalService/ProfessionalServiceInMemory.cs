@@ -1,12 +1,13 @@
 ﻿using Model;
+using System.Diagnostics.Contracts;
 
 namespace Services
 {
     public class ProfessionalServiceInMemory : IProfessionalService
     {
-        private List<Professional> _professionals { get; set; }
-        private List<Tool> _tools { get; set; }
-
+        private List<Professional> _professionals;
+        private List<Contact> _contacts;
+        private List<Tool> _tools;
         private List<Interest> _interests;
         private List<Skill> _skills;
         private List<Detail> _details;
@@ -205,9 +206,48 @@ position as a .Net Developer since I have certified in Fundamentals
 of Entity Framework, Linq and Blazor."
                 }
             };
+            _contacts = new List<Contact>
+            {
+                 new Contact
+                 {
+                     Id = 1,
+                     ProfessionalId = 1,
+                     PhoneNumber = "+54 9 381 5500 999",
+                     Email = "martin.lopezrubio@gmail.com",
+                     Github = "https://github.com/Tincho-dev",
+                     LinkedIn = "https://www.linkedin.com/in/martinlopezrubio/",
+                     City = "Tucuman, Argentina"
+                 }
+            };
         }
 
 
+
+        public async Task<Contact> GetContactFromProfessionalAsync(int professionalId)
+            => _contacts.Where(t => t.ProfessionalId == professionalId).Single();
+
+        public async Task<List<Tool>> GetToolsFromProfessionalAsync(int professionalId)
+            => _tools.Where(t => t.ProfessionalId == professionalId).ToList();
+        
+        public async Task<List<Interest>> GetInterestsFromProfessionalAsync(int professionalId)
+            => _interests.Where(t => t.ProfessionalId == professionalId).ToList();
+        
+        public async Task<List<Training>> GetTrainingsFromProfessionalAsync(int professionalId)
+            => _trainings.Where(t => t.ProfessionalId == professionalId).ToList();
+        
+        public async Task<List<Experience>> GetExperiencesFromProfessionalAsync(int professionalId)
+            =>  _experiences.Where(t => t.ProfessionalId == professionalId).ToList();
+        
+        public async Task<List<Detail>> GetAditionalInfoFromProfessionalAsync(int professionalId)
+            =>  _details.Where(t => t.ProfessionalId == professionalId).ToList();
+        
+        public async Task<List<Skill>> GetSkillsFromExperienceAsync(int experinceId)
+            =>  _skills.Where(s => s.ExperinceId == experinceId).ToList();
+        
+
+        public async Task<Training> GetTrainingAsync(int id) {
+            return _trainings.FirstOrDefault(t => t.Id == id);
+        }
 
         public async Task<Professional?> GetProfessionalAsync(int id)
         {

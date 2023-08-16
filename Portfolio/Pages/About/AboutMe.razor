@@ -19,11 +19,27 @@ else
 
 
 @code {
+    [Parameter]
+    public int ProfessionalId { get; set; }
     Professional? professional { get; set; }
+    private List<Tool> _tools;
+    private List<Interest> _interests;
+    private List<Detail> _aditionalInfo;
+    private List<Experience> _experiences;
+    private List<Skill> _skills;
+    private List<Training> _trainings;
+    private Contact _contacts;
 
     protected override async Task OnInitializedAsync()
     {
-        professional = await service.GetProfessionalAsync(1);
+        professional = await service.GetProfessionalAsync(ProfessionalId);
+        _tools = await service.GetToolsFromProfessionalAsync(ProfessionalId);
+        _interests = await service.GetInterestsFromProfessionalAsync(ProfessionalId);
+        _aditionalInfo = await service.GetAditionalInfoFromProfessionalAsync(ProfessionalId);
+        _experiences = await service.GetExperiencesFromProfessionalAsync(ProfessionalId);
+        _experiences.ForEach(e => _skills.AddRange((IEnumerable<Skill>)service.GetSkillsFromExperienceAsync(e.Id)));
+        _trainings = await service.GetTrainingsFromProfessionalAsync(ProfessionalId);
+        _contacts = await service.GetContactFromProfessionalAsync(ProfessionalId);
         base.OnInitialized();
     }
 }
