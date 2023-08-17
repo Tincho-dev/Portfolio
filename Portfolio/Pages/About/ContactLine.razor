@@ -1,5 +1,7 @@
 ﻿@using Model
+@using Services
 @using System.Reflection;
+@inject IProfessionalService service
 
 <div class="contact">
     <ul style="list-style-type:none; display: flex;">
@@ -30,12 +32,19 @@
             }
         }
     </ul>
-    <!-- Representación de los contactos con íconos -->
 </div>
 
 @code {
     [Parameter]
+    public int ProfessionalId { get; set; }
     public Contact Contact { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Contact = await service.GetContactFromProfessionalAsync(ProfessionalId);
+
+        base.OnInitializedAsync();
+    }
 
     private string FindIcon(string propertyName)
     {

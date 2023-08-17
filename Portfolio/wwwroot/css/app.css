@@ -4,6 +4,15 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+.item-icon {
+    width: 8px;
+    height: 8px;
+    background-color: #000;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
 h1:focus {
     outline: none;
 }

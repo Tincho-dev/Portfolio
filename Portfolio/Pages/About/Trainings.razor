@@ -1,3 +1,30 @@
-﻿<div class="training">
-    <!-- Representación de la formación -->
+﻿@using Model;
+@inject IProfessionalService service
+@using Services;
+
+<div class="training">
+    <TitleComponent Title="Training"></TitleComponent>
+    @foreach (var training in _trainings)
+    {
+        <div>
+            <span class="training-icon"></span>
+            <span>@training.Accademy</span>
+        </div>
+        <div>
+            @training.YearStart - @(training.YearFinish.HasValue ? training.YearFinish.Value.ToString() : "Present")
+        </div>
+        <div>@training.Speciality</div>
+    }
 </div>
+
+@code {
+    [Parameter]
+    public int ProfessionalId { get; set; }
+    private List<Training>? _trainings;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _trainings = await service.GetTrainingsFromProfessionalAsync(ProfessionalId);
+        await base.OnParametersSetAsync();
+    }
+}

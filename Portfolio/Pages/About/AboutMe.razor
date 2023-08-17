@@ -12,8 +12,9 @@
 else
 {
     <ProfileHeader Name="@professional.Name" Role="@professional.Role"></ProfileHeader>
-    <ContactLine Contact="@professional.Contact"></ContactLine>
+    <ContactLine ProfessionalId="@ProfessionalId"></ContactLine>
     <ProfessionalProfileContainer Tools="@professional.Tools" ProfessionalProfile="@professional.ProfessionalProfile"></ProfessionalProfileContainer>
+    <HistoryContainer ProfessionalId="@ProfessionalId"></HistoryContainer>
 }
 
 @code {
@@ -24,7 +25,6 @@ else
     private List<Interest>? _interests;
     private List<Detail>? _aditionalInfo;
     private List<Experience>? _experiences;
-    private List<Skill>? _skills;
     private List<Training>? _trainings;
     private Contact? _contacts;
 
@@ -35,11 +35,9 @@ else
         {
             professional.Tools = _tools = await service.GetToolsFromProfessionalAsync(ProfessionalId);
             professional.Interests = _interests = await service.GetInterestsFromProfessionalAsync(ProfessionalId);
-            professional.AdditionalInfo = _aditionalInfo = await service.GetAditionalInfoFromProfessionalAsync(ProfessionalId);
+            professional.AdditionalInfo = _aditionalInfo = await service.GetAdditionalInfoFromProfessionalAsync(ProfessionalId);
             professional.Experiences = _experiences = await service.GetExperiencesFromProfessionalAsync(ProfessionalId);
-            _experiences.ForEach(e => _skills.AddRange((IEnumerable<Skill>)service.GetSkillsFromExperienceAsync(e.Id)));
             professional.Trainings = _trainings = await service.GetTrainingsFromProfessionalAsync(ProfessionalId);
-            professional.Contact = _contacts = await service.GetContactFromProfessionalAsync(ProfessionalId);
         }
         base.OnInitialized();
     }

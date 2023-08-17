@@ -1,0 +1,13 @@
+﻿.section {
+    display: flex;
+}
+
+.experiences {
+    flex: 60%;
+}
+
+.right-column {
+    flex: 40%;
+    display: flex;
+    flex-direction: column; /* Organiza los elementos en una columna */
+}

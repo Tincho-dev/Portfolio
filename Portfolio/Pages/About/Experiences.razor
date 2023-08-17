@@ -1,3 +1,47 @@
-﻿<div class="experience">
-    <!-- Representación de la experiencia -->
+﻿@using Model;
+@inject IProfessionalService service
+@using Services;
+
+<div class="experience">
+    <TitleComponent Title="Experience"></TitleComponent>
+    @foreach (var experience in _experiences.OrderByDescending(e => e.YearStart))
+    {
+        <div>
+            <span class="experience-icon"></span>
+            <span>@experience.Name.ToUpper()</span>
+        </div>
+        <div>
+            @experience.YearStart - @(experience.YearFinish.HasValue ? experience.YearFinish.Value.ToString() : "Present")
+        </div>
+        <div>@experience.Role</div>
+        <div>
+            @foreach (var skill in _skills.Where(s => s.ExperinceId == experience.Id))
+            {
+                <div>
+                    <span class="skill-icon"></span>
+                    <span>@skill.Value</span>
+                </div>
+            }
+        </div>
+    }
 </div>
+
+@code {
+    [Parameter]
+    public int ProfessionalId { get; set; }
+    private List<Experience>? _experiences;
+    private List<Skill>? _skills;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _experiences = await service.GetExperiencesFromProfessionalAsync(ProfessionalId);
+        _skills = new List<Skill>();
+
+        foreach (var experience in _experiences)
+        {
+            _skills.AddRange((IEnumerable<Skill>)await service.GetSkillsFromExperienceAsync(experience.Id));
+        }
+
+        base.OnInitialized();
+    }
+}

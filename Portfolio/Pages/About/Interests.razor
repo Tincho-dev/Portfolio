@@ -1,3 +1,26 @@
-﻿<div class="interests">
-    <!-- Representación de los intereses -->
+﻿@using Model;
+@inject IProfessionalService service
+@using Services;
+
+<div class="interests">
+    <TitleComponent Title="Interests"></TitleComponent>
+    @foreach (var interest in _interests)
+    {
+        <div>
+            <span class="item-icon"></span>
+            @interest.Name
+        </div>
+    }
 </div>
+
+@code{
+    [Parameter]
+    public int ProfessionalId { get; set; }
+    private List<Interest>? _interests;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _interests = await service.GetInterestsFromProfessionalAsync(ProfessionalId);
+        await base.OnParametersSetAsync();
+    }
+}

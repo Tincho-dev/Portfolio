@@ -1,18 +1,22 @@
 ﻿@using Model;
 <div class="section">
     <div class="professional-profile">
-        <TitleComponent Title="Proffessional Profile"></TitleComponent>
-        @ProfessionalProfile
+        <TitleComponent Title="Professional Profile"></TitleComponent>
+        <div class="professional-content">
+            @ProfessionalProfile
+        </div>
     </div>
     <div class="tools">
         <TitleComponent Title="Tools"></TitleComponent>
-        @foreach (Tool tool in Tools.Take(4))
-        {
-            <div class="tool-logo">
-                <img src="@tool.LogoUrl" class="logo">
-                <p>@tool.Name</p>
-            </div>
-        }
+        <div class="tool-logos">
+            @foreach (Tool tool in Tools.Take(4))
+            {
+                <div class="tool-logo">
+                    <img src="@tool.LogoUrl" class="logo">
+                    <p>@tool.Name</p>
+                </div>
+            }
+        </div>
     </div>
 </div>
 

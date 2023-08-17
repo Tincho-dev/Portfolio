@@ -30,7 +30,6 @@ namespace Services
                     ProfessionalId = 1,
                     Description = "",
                     LogoUrl = "images/Csharp_Logo.png"
-                    //LogoUrl = "https://e7.pngegg.com/pngimages/328/221/png-clipart-c-programming-language-logo-microsoft-visual-studio-net-framework-javascript-icon-purple-logo.png"
                 },
                 new Tool
                 {
@@ -156,9 +155,11 @@ namespace Services
                 new Detail { Id = 4, Value = "Courses Taken on Time Management and Emotional Intelligence", ProfessionalId = 1 },
                 new Detail { Id = 5, Value = "General average in the university of 7.84", ProfessionalId = 1 }
             };
-            _experiences = new List<Experience>() { new Experience
+            _experiences = new List<Experience>() { 
+                new Experience
             {
                 Id = 1,
+                ProfessionalId = 1,
                 Name = "Integrator Final Works",
                 YearStart = 2019,
                 Role = "Project Leader - Programmer",
@@ -166,13 +167,12 @@ namespace Services
                 new Experience
                 {
                     Id = 2,
+                    ProfessionalId = 1,
                     Name = "CIASUR - RESEARCH CENTER",
                     YearStart = 2022,
                     YearFinish = 2023,
                     Role = "Collection for Data Analysis - Intern",
                 }
-
-
             };
             _trainings = new List<Training>()
             {
@@ -238,7 +238,7 @@ of Entity Framework, Linq and Blazor."
         public async Task<List<Experience>> GetExperiencesFromProfessionalAsync(int professionalId)
             =>  _experiences.Where(t => t.ProfessionalId == professionalId).ToList();
         
-        public async Task<List<Detail>> GetAditionalInfoFromProfessionalAsync(int professionalId)
+        public async Task<List<Detail>> GetAdditionalInfoFromProfessionalAsync(int professionalId)
             =>  _details.Where(t => t.ProfessionalId == professionalId).ToList();
         
         public async Task<List<Skill>> GetSkillsFromExperienceAsync(int experinceId)

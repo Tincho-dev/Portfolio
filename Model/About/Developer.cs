@@ -14,6 +14,16 @@
         public virtual Contact? Contact { get; set; }
     }
 
+
+    public class Interest : EntidadBase
+    {
+        public int Id { get; set; }
+        public int ProfessionalId { get; set; }
+        public virtual Professional? Professional { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public int CategoryId { get; set; }
+        public virtual Category? Category { get; set; }
+    }
     public class Detail : EntidadBase
     {
         public int Id { get; set; }
@@ -42,16 +52,6 @@
 
         public bool IsValid()
             => !YearFinish.HasValue || YearStart <= YearFinish.Value;
-    }
-
-    public class Interest : EntidadBase
-    {
-        public int Id { get; set; }
-        public int ProfessionalId { get; set; }
-        public virtual Professional? Professional { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public int CategoryId { get; set; }
-        public virtual Category? Category { get; set; }
     }
 
     public class Category : EntidadBase

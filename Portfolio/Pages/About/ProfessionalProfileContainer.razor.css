@@ -3,24 +3,33 @@
 }
 
 .professional-profile {
-    flex: 55%;
+    flex: 65%; /* Aumentamos el ancho para dar más espacio al título */
+    display: flex;
+    flex-direction: column;
 }
 
 .tools {
-    flex: 40%;
+    flex: 35%;
     display: flex;
-    justify-content: space-around; /* Alinea los elementos con espacio equilibrado */
+    flex-direction: column; /* Organiza el título y el contenido en una columna */
 }
 
-.logo {
-    width: 60px; /* Ajusta este valor según el tamaño deseado */
-    height: auto; /* Mantiene la proporción */
+.tool-logos {
+    display: flex; /* Organiza los logotipos de las herramientas en una fila */
+    justify-content: space-around;
 }
 
 .tool-logo {
-    flex: 1;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.professional-content {
+    margin-right: 30px; /* Margen derecho de 30px */
+}
+
+.logo {
+    width: 60px;
+    height: auto;
 }

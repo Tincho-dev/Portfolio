@@ -26,7 +26,7 @@ public class ProfessionalService : IProfessionalService
     public async Task<List<Experience>> GetExperiencesFromProfessionalAsync(int professionalId)
         => _experiences.Where(t => t.ProfessionalId == professionalId).ToList();
 
-    public async Task<List<Detail>> GetAditionalInfoFromProfessionalAsync(int professionalId)
+    public async Task<List<Detail>> GetAdditionalInfoFromProfessionalAsync(int professionalId)
         => _details.Where(t => t.ProfessionalId == professionalId).ToList();
 
     public async Task<List<Skill>> GetSkillsFromExperienceAsync(int experinceId)

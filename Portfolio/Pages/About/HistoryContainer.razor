@@ -1,8 +1,15 @@
 ﻿<div class="section">
-    <Experiences></Experiences>
     <div class="right-column">
-        <Trainings></Trainings>
-        <Interests></Interests>
-        <AdditionalInfo></AdditionalInfo>
+        <Trainings ProfessionalId="@ProfessionalId"></Trainings>
+        <Interests ProfessionalId="@ProfessionalId"></Interests>
+        <AdditionalInfo ProfessionalId="@ProfessionalId"></AdditionalInfo>
+    </div>
+    <div class="experiences">
+        <Experiences ProfessionalId="@ProfessionalId"></Experiences>
     </div>
 </div>
+
+@code {
+    [Parameter]
+    public int ProfessionalId { get; set; }
+}
