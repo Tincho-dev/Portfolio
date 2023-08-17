@@ -1,0 +1,53 @@
+﻿@using Model
+@using System.Reflection;
+
+<div class="contact">
+    <ul style="list-style-type:none; display: flex;">
+        @foreach (var prop in Contact.GetType().GetProperties().Where(p => !p.Name.EndsWith("Id")))
+        {
+            var value = prop.GetValue(Contact)?.ToString();
+            var displayValue = value;
+            var link = value;
+            var iconClass = FindIcon(prop.Name);
+
+            if (value?.Contains(".com/") == true)
+            {
+                displayValue = value.Substring(value.IndexOf(".com/") + 5);
+            }
+            else if (value?.Contains("@") == true && value.Contains(".com"))
+            {
+                link = $"mailto:{value}";
+                displayValue = value;
+            }
+
+            if (Uri.IsWellFormedUriString(link, UriKind.Absolute))
+            {
+                <li style="margin-right: 15px;"><i class="@iconClass"></i> <a href="@link" target="_blank" style="color: black; text-decoration: none;">@displayValue</a></li>
+            }
+            else
+            {
+                <li style="margin-right: 15px;"><i class="@iconClass"></i> @displayValue</li>
+            }
+        }
+    </ul>
+    <!-- Representación de los contactos con íconos -->
+</div>
+
+@code {
+    [Parameter]
+    public Contact Contact { get; set; }
+
+    private string FindIcon(string propertyName)
+    {
+        var iconPack = new Dictionary<string, string>
+        {
+            { "PhoneNumber", "bi bi-telephone" },
+            { "Email", "bi bi-envelope" },
+            { "LinkedIn", "bi bi-linkedin" },
+            { "Github", "bi bi-github" },
+            { "City", "bi bi-geo-alt" }
+        };
+
+        return iconPack.ContainsKey(propertyName) ? iconPack[propertyName] : string.Empty;
+    }
+}

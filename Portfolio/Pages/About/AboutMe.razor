@@ -1,45 +1,46 @@
 ﻿@inject IProfessionalService service
-@using  Services;
+@using Services;
 @using Model
 
-<h3>AboutMe</h3>
 
-    @if(professional == null)
-    {
-<h1>
+@if (professional == null)
+{
+    <h1>
         "No se pudo cargar el profesional";
     </h1>
 }
 else
 {
-    <h1> @professional.Name </h1>
+    <ProfileHeader Name="@professional.Name" Role="@professional.Role"></ProfileHeader>
+    <ContactLine Contact="@professional.Contact"></ContactLine>
+    <ProfessionalProfileContainer Tools="@professional.Tools" ProfessionalProfile="@professional.ProfessionalProfile"></ProfessionalProfileContainer>
 }
-
-@*@professional?.Contact.City*@
-
 
 @code {
     [Parameter]
     public int ProfessionalId { get; set; }
     Professional? professional { get; set; }
-    private List<Tool> _tools;
-    private List<Interest> _interests;
-    private List<Detail> _aditionalInfo;
-    private List<Experience> _experiences;
-    private List<Skill> _skills;
-    private List<Training> _trainings;
-    private Contact _contacts;
+    private List<Tool>? _tools;
+    private List<Interest>? _interests;
+    private List<Detail>? _aditionalInfo;
+    private List<Experience>? _experiences;
+    private List<Skill>? _skills;
+    private List<Training>? _trainings;
+    private Contact? _contacts;
 
     protected override async Task OnInitializedAsync()
     {
         professional = await service.GetProfessionalAsync(ProfessionalId);
-        _tools = await service.GetToolsFromProfessionalAsync(ProfessionalId);
-        _interests = await service.GetInterestsFromProfessionalAsync(ProfessionalId);
-        _aditionalInfo = await service.GetAditionalInfoFromProfessionalAsync(ProfessionalId);
-        _experiences = await service.GetExperiencesFromProfessionalAsync(ProfessionalId);
-        _experiences.ForEach(e => _skills.AddRange((IEnumerable<Skill>)service.GetSkillsFromExperienceAsync(e.Id)));
-        _trainings = await service.GetTrainingsFromProfessionalAsync(ProfessionalId);
-        _contacts = await service.GetContactFromProfessionalAsync(ProfessionalId);
+        if (professional != null)
+        {
+            professional.Tools = _tools = await service.GetToolsFromProfessionalAsync(ProfessionalId);
+            professional.Interests = _interests = await service.GetInterestsFromProfessionalAsync(ProfessionalId);
+            professional.AdditionalInfo = _aditionalInfo = await service.GetAditionalInfoFromProfessionalAsync(ProfessionalId);
+            professional.Experiences = _experiences = await service.GetExperiencesFromProfessionalAsync(ProfessionalId);
+            _experiences.ForEach(e => _skills.AddRange((IEnumerable<Skill>)service.GetSkillsFromExperienceAsync(e.Id)));
+            professional.Trainings = _trainings = await service.GetTrainingsFromProfessionalAsync(ProfessionalId);
+            professional.Contact = _contacts = await service.GetContactFromProfessionalAsync(ProfessionalId);
+        }
         base.OnInitialized();
     }
 }

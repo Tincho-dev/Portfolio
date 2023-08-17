@@ -1,0 +1,24 @@
+﻿@using Model;
+<div class="section">
+    <div class="professional-profile">
+        <TitleComponent Title="Proffessional Profile"></TitleComponent>
+        @ProfessionalProfile
+    </div>
+    <div class="tools">
+        <TitleComponent Title="Tools"></TitleComponent>
+        @foreach (Tool tool in Tools.Take(4))
+        {
+            <div class="tool-logo">
+                <img src="@tool.LogoUrl" class="logo">
+                <p>@tool.Name</p>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string ProfessionalProfile { get; set; }
+    [Parameter]
+    public List<Tool> Tools { get; set; }
+}

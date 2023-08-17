@@ -1,0 +1,24 @@
+﻿<div class="header">
+    <div class="photo"></div>
+    <div class="title">
+        <h1 class="title-style">
+            @foreach (var part in Role?.ToUpper().Split('/') ?? Array.Empty<string>())
+            {
+                @part
+                if (part != Role?.ToUpper().Split('/').Last())
+                {
+                    <text> / </text>
+                    <br />
+                }
+            }
+        </h1>
+        <h3 class="title-style">@Name</h3>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string? Name { get; set; }
+    [Parameter]
+    public string? Role { get; set; }
+}
