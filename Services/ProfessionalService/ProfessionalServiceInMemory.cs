@@ -38,7 +38,7 @@ namespace Services
                     ProfessionalId = 1,
                     Name = "Azure DevOps",
                     Description = "",
-                    LogoUrl = "images/AzureDevOps_Logo.webp"
+                    LogoUrl = "images/AzureDevOps_Logo.png"
                 },
                 new Tool
                 {
