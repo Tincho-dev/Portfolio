@@ -4,8 +4,9 @@
 @inject IProfessionalService service
 
 <div class="contact">
-    <ul style="list-style-type:none; display: flex;">
-        @foreach (var prop in Contact.GetType().GetProperties().Where(p => !p.Name.EndsWith("Id")))
+    <ul>
+        @foreach (var prop in Contact.GetType().GetProperties()
+        .Where(p => !p.Name.EndsWith("Id") && !IsVirtualProperty(p)))
         {
             var value = prop.GetValue(Contact)?.ToString();
             var displayValue = value;
@@ -24,15 +25,16 @@
 
             if (Uri.IsWellFormedUriString(link, UriKind.Absolute))
             {
-                <li style="margin-right: 15px;"><i class="@iconClass"></i> <a href="@link" target="_blank" style="color: black; text-decoration: none;">@displayValue</a></li>
+                <li><i class="@iconClass"></i> <a href="@link" target="_blank">@displayValue</a></li>
             }
             else
             {
-                <li style="margin-right: 15px;"><i class="@iconClass"></i> @displayValue</li>
+                <li><i class="@iconClass"></i> @displayValue</li>
             }
         }
     </ul>
 </div>
+
 
 @code {
     [Parameter]
@@ -44,6 +46,11 @@
         Contact = await service.GetContactFromProfessionalAsync(ProfessionalId);
 
         base.OnInitializedAsync();
+    }
+
+    private bool IsVirtualProperty(PropertyInfo prop)
+    {
+        return prop.GetAccessors().Any(x => x.IsVirtual);
     }
 
     private string FindIcon(string propertyName)

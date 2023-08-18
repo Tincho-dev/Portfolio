@@ -2,4 +2,9 @@
     font-family: 'Lato', sans-serif;
     letter-spacing: 0.1em;
     line-height: 1.2;
+    padding: 1em 0em 0em 1em;
+}
+
+.header{
+    background-color: #F4F4F4;
 }

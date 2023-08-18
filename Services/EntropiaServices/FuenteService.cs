@@ -8,15 +8,11 @@ namespace Services;
 public class FuenteService : IFuenteService
 {
     private readonly EntropiaContext _context;
-    //private readonly NavigationManager _navigationManager;
     public List<Fuente> Fuentes { get; set; } = new List<Fuente>();
 
-    public FuenteService(EntropiaContext context
-        //, NavigationManager navigationManager
-        )
+    public FuenteService(EntropiaContext context)
     {
         _context = context;
-        //_navigationManager = navigationManager;
         _context.Database.EnsureCreated();
     }
 
@@ -51,7 +47,6 @@ public class FuenteService : IFuenteService
         }
         _context.Fuentes.Add(fuente);
         await _context.SaveChangesAsync();
-        //_navigationManager.NavigateTo("fuentes");
     }
 
     public async Task Delete(string id)
@@ -63,7 +58,6 @@ public class FuenteService : IFuenteService
         }
         _context.Fuentes.Remove(dbFuente);
         await _context.SaveChangesAsync();
-        //_navigationManager.NavigateTo("fuentes");
     }
 
     public async Task Update(Fuente fuente, string id)
@@ -76,6 +70,5 @@ public class FuenteService : IFuenteService
         dbFuente.CadenaFuente = fuente.CadenaFuente;
 
         await _context.SaveChangesAsync();
-        //_navigationManager.NavigateTo("fuentes");
     }
 }

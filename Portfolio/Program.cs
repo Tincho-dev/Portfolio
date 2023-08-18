@@ -17,16 +17,13 @@ builder.Services.AddDbContext<EntropiaContext>(options => options.UseInMemoryDat
 builder.Services.AddDbContext<ProfessionalContext>(options => options.UseInMemoryDatabase("professionaldb"));
 builder.Services.AddScoped<IFuenteService, FuenteService>();
 builder.Services.AddScoped<FuenteController>();
-builder.Services.AddScoped<Repositorio<Professional>>(sp =>
-{
-    var dbContext = sp.GetRequiredService<ProfessionalContext>(); // Obtener el contexto de la base de datos
-    return new Repositorio<Professional>(dbContext);
-});
-builder.Services.AddScoped<IProfessionalService, ProfessionalServiceInMemory>();
+builder.Services.AddSingleton<ISimuladorColasEsperaService, SimuladorColasEsperaService>();
+//builder.Services.AddScoped<IProfessionalService, ProfessionalService>();
+//builder.Services.AddScoped<IProfessionalService, ProfessionalServiceInMemory>();
+builder.Services.AddScoped<IProfessionalService, ProfessionalServiceClassic>();
 builder.Services.AddSingleton<IGeneradorService, GeneradorService>();
 builder.Services.AddSingleton<IPruebasEstadisticasService, PruebasEstadisticasService>();
 builder.Services.AddSingleton<IDistribucionesService, DistribucionesService>();
-builder.Services.AddSingleton<ISimuladorColasEsperaService, SimuladorColasEsperaService>();
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<TooltipService>();

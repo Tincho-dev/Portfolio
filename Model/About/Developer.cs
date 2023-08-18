@@ -34,7 +34,7 @@
     public class Skill : EntidadBase
     {
         public int Id { get; set; }
-        public int ExperinceId { get; set; }
+        public int ExperienceId { get; set; }
         public virtual Experience? Experience { get; set; }
         public string Value { get; set; } = string.Empty;
     }

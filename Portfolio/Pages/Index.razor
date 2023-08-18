@@ -1,3 +1,16 @@
 ﻿@page "/"
-<AboutMe ProfessionalId="1"></AboutMe>
-<h1>Seleccione una opcion del menu lateral</h1>
+@using Model;
+@using Services
+@inject IProfessionalService service
+
+<AboutMe ProfessionalId="ProfessionalId"></AboutMe>
+
+@code{
+    public int ProfessionalId { get; set; }
+    protected override async  Task OnInitializedAsync()
+    {
+        Professional professional = await service.GetProfessionalAsync(1);
+        ProfessionalId = professional != null ? professional.Id : 2;
+        base.OnInitializedAsync();
+    }
+}

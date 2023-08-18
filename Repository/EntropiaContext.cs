@@ -9,6 +9,7 @@ public class EntropiaContext : DbContext
     {
 
     }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Fuente>().HasData(
