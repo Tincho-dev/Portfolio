@@ -5,6 +5,17 @@
     padding: 1em 0em 0em 1em;
 }
 
-.header{
+.header {
+    display: flex;
     background-color: #F4F4F4;
+}
+
+.badge-container {
+    width: 40%;
+    display: flex;
+    align-items: center; /* Centrar verticalmente si es necesario */
+}
+
+.title {
+    width: 60%;
 }
