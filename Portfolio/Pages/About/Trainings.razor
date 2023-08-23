@@ -17,14 +17,4 @@
     }
 </div>
 
-@code {
-    [Parameter]
-    public int ProfessionalId { get; set; }
-    private List<Training>? _trainings;
 
-    protected override async Task OnInitializedAsync()
-    {
-        _trainings = await service.GetTrainingsFromProfessionalAsync(ProfessionalId);
-        await base.OnParametersSetAsync();
-    }
-}

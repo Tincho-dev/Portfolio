@@ -3,7 +3,7 @@
 @using System.Reflection;
 @inject IProfessionalService service
 
-<div class="contact">
+<div class="contact" role="list">
     <ul>
         @foreach (var prop in Contact.GetType().GetProperties()
         .Where(p => !p.Name.EndsWith("Id") && !IsVirtualProperty(p)))
@@ -25,45 +25,12 @@
 
             if (Uri.IsWellFormedUriString(link, UriKind.Absolute))
             {
-                <li><i class="@iconClass"></i> <a href="@link" target="_blank">@displayValue</a></li>
+                <li role="listitem"><i class="@iconClass" aria-hidden="true"></i> <a href="@link" target="_blank" rel="noopener noreferrer">@displayValue</a></li>
             }
             else
             {
-                <li><i class="@iconClass"></i> @displayValue</li>
+                <li role="listitem"><i class="@iconClass" aria-hidden="true"></i> @displayValue</li>
             }
         }
     </ul>
 </div>
-
-
-@code {
-    [Parameter]
-    public int ProfessionalId { get; set; }
-    public Contact Contact { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        Contact = await service.GetContactFromProfessionalAsync(ProfessionalId);
-
-        base.OnInitializedAsync();
-    }
-
-    private bool IsVirtualProperty(PropertyInfo prop)
-    {
-        return prop.GetAccessors().Any(x => x.IsVirtual);
-    }
-
-    private string FindIcon(string propertyName)
-    {
-        var iconPack = new Dictionary<string, string>
-        {
-            { "PhoneNumber", "bi bi-telephone" },
-            { "Email", "bi bi-envelope" },
-            { "LinkedIn", "bi bi-linkedin" },
-            { "Github", "bi bi-github" },
-            { "City", "bi bi-geo-alt" }
-        };
-
-        return iconPack.ContainsKey(propertyName) ? iconPack[propertyName] : string.Empty;
-    }
-}

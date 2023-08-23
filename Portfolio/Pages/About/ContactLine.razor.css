@@ -1,16 +1,28 @@
 ﻿.contact ul {
     list-style-type: none;
     display: flex;
-    justify-content: space-between; /* Distribuye los elementos a lo largo del contenedor */
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en pantallas pequeñas */
+    justify-content: space-between;
 }
 
 .contact li {
     margin-right: 15px;
-    color: black;
+    color: #333; /* Color oscuro para mejorar el contraste */
     text-decoration: none;
 }
 
 .contact a {
-    color: black;
+    color: #333; /* Color oscuro para mejorar el contraste */
     text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .contact ul {
+        flex-direction: column; /* Organiza los elementos en una columna en pantallas pequeñas */
+    }
+
+    .contact li {
+        margin-right: 0;
+        margin-bottom: 15px; /* Espaciado entre elementos en dispositivos móviles */
+    }
 }

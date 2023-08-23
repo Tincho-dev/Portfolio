@@ -1,13 +1,32 @@
 ﻿.section {
     display: flex;
+    flex-direction: row; /* Organiza los elementos en una fila por defecto */
 }
 
 .experiences {
     flex: 60%;
+    order: 1; /* Se muestra primero en dispositivos más grandes */
 }
 
 .right-column {
     flex: 40%;
     display: flex;
     flex-direction: column; /* Organiza los elementos en una columna */
+}
+
+/* Media Query para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .section {
+        flex-direction: column; /* Organiza los elementos en una columna en pantallas pequeñas */
+    }
+
+    .experiences {
+        flex: 100%; /* Ocupa todo el ancho disponible en dispositivos móviles */
+        order: 1; /* Se muestra primero en dispositivos móviles */
+    }
+
+    .right-column {
+        flex: 100%; /* Ocupa todo el ancho disponible en dispositivos móviles */
+        order: 2; /* Se muestra después de las experiencias en dispositivos móviles */
+    }
 }

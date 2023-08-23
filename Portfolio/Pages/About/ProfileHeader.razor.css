@@ -1,21 +1,34 @@
-﻿.title-style {
+﻿
+.title-style {
     font-family: 'Lato', sans-serif;
     letter-spacing: 0.1em;
     line-height: 1.2;
     padding: 1em 0em 0em 1em;
+    color: #333; /* Mejora el contraste con el fondo */
 }
 
 .header {
     display: flex;
     background-color: #F4F4F4;
+    flex-wrap: wrap; /* Ajustar contenido en pantallas más pequeñas */
 }
 
 .badge-container {
     width: 40%;
     display: flex;
-    align-items: center; /* Centrar verticalmente si es necesario */
+    align-items: center;
 }
 
 .title {
     width: 60%;
+}
+
+.separator {
+    margin: 0 0.5em; /* Espaciado alrededor del separador */
+}
+
+@media only screen and (max-width: 768px) {
+    .title, .badge-container {
+        width: 100%; /* En pantallas pequeñas, los elementos ocupan todo el ancho */
+    }
 }
