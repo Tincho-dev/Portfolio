@@ -43,19 +43,27 @@
 
     private async Task<string> GetLogoUrl(string logoUrl)
     {
-        // Asegurarse de que la URL no tenga ya una extensión
         string baseLogoUrl = logoUrl.EndsWith(".webp") || logoUrl.EndsWith(".png") ? logoUrl.Substring(0, logoUrl.LastIndexOf('.')) : logoUrl;
 
         string webpUrl = baseLogoUrl + ".webp";
         string pngUrl = baseLogoUrl + ".png";
 
         // Intenta obtener el archivo con la extensión .webp
-        var response = await Http.GetAsync(webpUrl);
-        if (response.IsSuccessStatusCode)
+        var responseWebp = await Http.GetAsync(webpUrl);
+        if (responseWebp.IsSuccessStatusCode)
         {
             return webpUrl; // Si existe, retorna la URL con la extensión .webp
         }
 
-        return pngUrl; // Si no existe, retorna la URL con la extensión .png
+        // Intenta obtener el archivo con la extensión .png
+        var responsePng = await Http.GetAsync(pngUrl);
+        if (responsePng.IsSuccessStatusCode)
+        {
+            return pngUrl; // Si existe, retorna la URL con la extensión .png
+        }
+
+        // Si ambas extensiones fallan, puedes manejar el error como prefieras
+        return "favicon.png";
     }
+
 }
