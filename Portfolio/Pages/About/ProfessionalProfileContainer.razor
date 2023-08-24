@@ -1,4 +1,7 @@
 ﻿@using Model;
+@using System.Net.Http;
+@inject HttpClient Http
+
 <div class="section">
     <div class="professional-profile">
         <TitleComponent Title="Professional Profile"></TitleComponent>
@@ -9,7 +12,7 @@
     <div class="tools">
         <TitleComponent Title="Tools"></TitleComponent>
         <div class="tool-logos">
-            @foreach (Tool tool in Tools.Take(4))
+            @foreach (Tool tool in ToolsWithLogoUrls.Take(4))
             {
                 <div class="tool-logo">
                     <img src="@tool.LogoUrl" class="logo">
@@ -25,4 +28,34 @@
     public string? ProfessionalProfile { get; set; }
     [Parameter]
     public List<Tool>? Tools { get; set; }
+
+    public List<Tool> ToolsWithLogoUrls { get; set; } = new List<Tool>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        foreach (var tool in Tools)
+        {
+            tool.LogoUrl = await GetLogoUrl(tool.LogoUrl);
+            ToolsWithLogoUrls.Add(tool);
+        }
+        await base.OnInitializedAsync();
+    }
+
+    private async Task<string> GetLogoUrl(string logoUrl)
+    {
+        // Asegurarse de que la URL no tenga ya una extensión
+        string baseLogoUrl = logoUrl.EndsWith(".webp") || logoUrl.EndsWith(".png") ? logoUrl.Substring(0, logoUrl.LastIndexOf('.')) : logoUrl;
+
+        string webpUrl = baseLogoUrl + ".webp";
+        string pngUrl = baseLogoUrl + ".png";
+
+        // Intenta obtener el archivo con la extensión .webp
+        var response = await Http.GetAsync(webpUrl);
+        if (response.IsSuccessStatusCode)
+        {
+            return webpUrl; // Si existe, retorna la URL con la extensión .webp
+        }
+
+        return pngUrl; // Si no existe, retorna la URL con la extensión .png
+    }
 }

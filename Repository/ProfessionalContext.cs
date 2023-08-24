@@ -33,7 +33,7 @@ public class ProfessionalContext : DbContext
                 Name = "C#",
                 ProfessionalId = 1,
                 Description = "",
-                LogoUrl = "images/Csharp_Logo.webp"
+                LogoUrl = "images/Csharp_Logo"//webp"
             },
             new Tool
             {
@@ -41,7 +41,7 @@ public class ProfessionalContext : DbContext
                 ProfessionalId = 1,
                 Name = "Azure DevOps",
                 Description = "",
-                LogoUrl = "images/AzureDevOps_Logo.webp"
+                LogoUrl = "images/AzureDevOps_Logo"//webp"
             },
             new Tool
             {
@@ -49,7 +49,7 @@ public class ProfessionalContext : DbContext
                 ProfessionalId = 1,
                 Name = "Visual Studio",
                 Description = "",
-                LogoUrl = "images/VisualStudio2022_Logo.webp"
+                LogoUrl = "images/VisualStudio2022_Logo"//webp"
             },
             new Tool
             {
@@ -57,7 +57,7 @@ public class ProfessionalContext : DbContext
                 ProfessionalId = 1,
                 Name = "Blazor",
                 Description = "",
-                LogoUrl = "images/Blazor_Logo.webp"
+                LogoUrl = "images/Blazor_Logo"//webp"
             },
             new Tool
             {
@@ -65,7 +65,7 @@ public class ProfessionalContext : DbContext
                 ProfessionalId = 1,
                 Name = "Github",
                 Description = "",
-                LogoUrl = "images/GitHub_Logo.webp"
+                LogoUrl = "images/GitHub_Logo"//webp"
             }
             );
 
