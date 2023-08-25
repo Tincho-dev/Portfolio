@@ -3,85 +3,32 @@
 @using Controllers;
 @inject FuenteController controller
 
-@if (Id == null)
-{
-    <h3>Create a new Fuente</h3>
-}
-else
-{
-    <h3>Detalles de la Fuente: </h3>
-}
+<div class="edit-form-container">
+    @if (Id == null)
+    {
+        <h3>Create a new Fuente</h3>
+    }
+    else
+    {
+        <h3>Detalles de la Fuente: </h3>
+    }
 
-<EditForm Model="fuente" OnSubmit="HadleSubmit">
-    <div>
-        <label for="cadenaFuente">Cadena Fuente</label>
-        <InputTextArea id="cadenaFuente" @bind-Value="fuente.CadenaFuente" class="form-control" spellcheck="false" rows="@(fuente.CadenaFuente.Length/120  )"></InputTextArea>
-    </div>
-    <br />
-    <button type="submit" class="btn btn-primary rz-ripple rz-shadow-2 rz-border-radius-6 ">@btnText</button>
-    <button type="button" class="btn btn-danger rz-ripple rz-shadow-2 rz-border-radius-6" @onclick="DeleteFuente">Delete Fuente</button>
-</EditForm>
+    <EditForm Model="fuente" OnSubmit="HadleSubmit">
+        <div>
+            <label for="cadenaFuente">Cadena Fuente</label>
+            <InputTextArea id="cadenaFuente" @bind-Value="fuente.CadenaFuente" class="form-control" spellcheck="false" rows="@(fuente.CadenaFuente.Length/120  )"></InputTextArea>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary rz-ripple rz-shadow-2 rz-border-radius-6">@btnText</button>
+        <button type="button" class="btn btn-danger rz-ripple rz-shadow-2 rz-border-radius-6" @onclick="DeleteFuente">Delete Fuente</button>
+    </EditForm>
+</div>
 
 @if (Id != null)
 {
-    <CadenaCodificada Fuente="@fuente"></CadenaCodificada>
-
-    @*<Histograma Letras="@fuente.Letras"></Histograma>*@
-
-    <Decodificador Fuente="@fuente"></Decodificador>
-
-    <TablaLetras Letras="@fuente.Letras"></TablaLetras>    
-}
-
-
-
-@code {
-    [Parameter]
-    public string? Id { get; set; }
-    string btnText = string.Empty;
-    Model.Fuente fuente = new();
-
-
-    protected override void OnInitialized()
-    {
-        btnText = Id == null ? "Save New Fuente" : "Update Fuente";
-    }
-
-    protected override async Task OnParametersSetAsync()
-    {
-        if (Id != null)
-        {
-            fuente = await controller.GetSingle((string) Id);
-            fuente = new Model.Fuente(fuente.CadenaFuente);
-        }
-    }
-
-    async Task HadleSubmit()
-    {
-        if (Id == null)
-        {
-            await controller.Create(fuente);
-        }
-        else
-        {
-            await controller.Update(fuente, (string)Id);
-        }
-    }
-
-    private void MostrarMensaje(string message)
-    {
-        Console.WriteLine(message);
-    }
-
-    async Task DeleteFuente()
-    {
-        try
-        {
-            await controller.Delete(fuente.IdFuente);
-        }
-        catch(Exception e)
-        {
-            MostrarMensaje(e.Message);
-        }
-    }
+    <div class="component-container">
+        <div class="component-child"><CadenaCodificada Fuente="@fuente"></CadenaCodificada></div>
+        <div class="component-child"><Decodificador Fuente="@fuente"></Decodificador></div>
+        <div class="component-child"><TablaLetras Letras="@fuente.Letras"></TablaLetras></div>
+    </div>
 }

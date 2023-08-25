@@ -1,54 +1,32 @@
 @using Model;
 
-<RadzenCard class="rz-background-color-info-lighter" Style="margin-top:10px">
-
-
-<div id="tabla-letras">
-
-    <table class="table">
-        <tr>
-            <th>
-                Letra
-            </th>
-            <th>
-                Probabilidad
-            </th>
-            <th>
-                Informacion
-            </th>
-            <th>
-                Codigo
-            </th>
-            <th>
-                Frecuencia de aparicion
-            </th>
-            <th></th>
-        </tr>
-    @foreach (var item in Letras.OrderByDescending(x => x.FrecuenciaDeAparicion))
-    {
+<RadzenCard class="rz-background-color-info-lighter tabla-letras-card">
+    <div id="tabla-letras" class="tabla-letras-container">
+        <table class="table letras-table">
+            <thead>
                 <tr>
-                    <td>
-                @item.Name
-                    </td>
-                    <td>
-                @(
-                    (item.Probability * 100).ToString("0.##")
-                    ) %
-                    </td>
-                    <td>
-                @item.Information.ToString("0.##") bit
-                    </td>
-                    <td>
-                @item.Code
-                    </td>
-                    <td>
-                @item.FrecuenciaDeAparicion
-                    </td>
+                    <th>Letra</th>
+                    <th class="desktop-only">Probabilidad</th>
+                    <th>Información</th>
+                    <th>Código</th>
+                    <th class="desktop-only">Frecuencia</th>
                 </tr>
-    }
-    </table>
-</div>
-    </RadzenCard>
+            </thead>
+            <tbody>
+                @foreach (var item in Letras.OrderByDescending(x => x.FrecuenciaDeAparicion))
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td class="desktop-only">@((item.Probability * 100).ToString("0.##")) %</td>
+                        <td>@item.Information.ToString("0.##") bit</td>
+                        <td>@item.Code</td>
+                        <td class="desktop-only">@item.FrecuenciaDeAparicion</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</RadzenCard>
 
 @code {
     [Parameter]

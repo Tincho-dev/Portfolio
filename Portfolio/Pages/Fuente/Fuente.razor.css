@@ -1,0 +1,39 @@
+﻿/* Espacio alrededor del formulario y botones */
+.edit-form-container {
+    margin-bottom: 20px;
+}
+
+/* Espacio entre los botones */
+.btn {
+    margin-right: 10px;
+}
+
+/* Espacio entre los componentes individuales */
+.component-container {
+    margin-top: 20px;
+}
+.component-child {
+    margin-bottom: 20px;
+}
+
+/* Estilos para el título */
+h3 {
+    margin-bottom: 20px;
+}
+
+/* Estilos para el área de texto */
+#cadenaFuente {
+    width: 100%;
+    resize: none;
+}
+
+/* Estilos responsivos */
+@media screen and (max-width: 768px) {
+    .btn {
+        margin-bottom: 10px;
+    }
+
+    .edit-form-container {
+        margin-bottom: 15px;
+    }
+}

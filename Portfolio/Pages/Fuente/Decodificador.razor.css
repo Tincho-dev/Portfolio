@@ -1,0 +1,37 @@
+﻿.decodificador-card {
+    margin-top: 10px;
+    padding: 20px;
+}
+
+.decodificador-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.decodificador-button {
+    margin: 10px 0;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+/* Estilos responsivos */
+@media screen and (max-width: 768px) {
+    .decodificador-card {
+        padding: 15px;
+    }
+
+    .form-control {
+        font-size: 14px;
+    }
+
+    .decodificador-button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

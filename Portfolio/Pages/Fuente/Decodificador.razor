@@ -1,17 +1,16 @@
-<RadzenCard class="rz-background-color-info-lighter" Style="margin-top:10px">
+<RadzenCard class="rz-background-color-info-lighter decodificador-card">
+    <div id="Decodificador" class="decodificador-container">
+        <h3>Decodificador</h3>
 
+        <label for="secuencia-input">Ingrese una secuencia de 0 y 1:</label>
+        <input id="secuencia-input" type="text" @bind="Cadena" class="form-control" />
 
-<div id="Decodificador">
-    <h3>Decodificador</h3>
+        <button class="btn btn-primary decodificar-button" @onclick="@Decodificar">Decodificar</button>
 
-    <label>Ingrese una secueincia de 0 y 1:</label>
-    <input type="text" @bind="Cadena" />
-    <button class="btn btn-primary" @onclick="@Decodificar">Decodificar</button>
-    <br />
-    <label>Palabra decodificada:</label>
-    <input type="text" contenteditable="false" @bind="CadenaDecodificada" />
-</div>
-    </RadzenCard>
+        <label for="palabra-input">Palabra decodificada:</label>
+        <input id="palabra-input" type="text" contenteditable="false" @bind="CadenaDecodificada" class="form-control" />
+    </div>
+</RadzenCard>
 
 @code {
     [Parameter]
@@ -23,5 +22,4 @@
     {
         CadenaDecodificada = fuente.DecodificarHuffman(Cadena);
     }
-
 }

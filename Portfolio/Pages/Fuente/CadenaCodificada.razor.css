@@ -1,0 +1,21 @@
+﻿.cadena-codificada-card {
+    margin-top: 10px;
+}
+
+.cadena-textarea {
+    width: 100%;
+    min-height: 100px; /* Puedes ajustar esta altura según tus necesidades */
+    resize: none; /* Deshabilitar el redimensionamiento */
+    border: 1px solid #ccc; /* Color de borde suave */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px;
+    overflow-y: auto; /* Desplazamiento vertical si es necesario */
+    background-color: #f5f5f5; /* Un color de fondo suave */
+    color: #333; /* Color de texto */
+    font-family: 'Arial', sans-serif; /* Fuente agradable */
+    line-height: 1.5; /* Espaciado entre líneas */
+}
+
+.copiar-btn {
+    margin-top: 10px; /* Espacio entre el botón y el textarea */
+}

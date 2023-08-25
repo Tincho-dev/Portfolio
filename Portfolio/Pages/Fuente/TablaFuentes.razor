@@ -3,11 +3,11 @@
 @inject NavigationManager NavigationManager
 
 <h3>Fuentes</h3>
-<button class="btn btn-primary rz-ripple rz-shadow-2 rz-border-radius-6" @onclick="CreateNewFuente">Crear Nueva Fuente</button>
+<button class="btn btn-primary rz-ripple rz-shadow-2 rz-border-radius-6" @onclick="CreateNewFuente" aria-label="Crear Nueva Fuente">Crear Nueva Fuente</button>
 
-<ManualFuentesComponent></ManualFuentesComponent>
+<ManualFuentesComponent/>
 
-<table class="table">
+<table class="table" aria-label="Tabla de Fuentes">
     <thead>
         <tr>
             <th>Numero de Simbolos</th>
@@ -27,29 +27,11 @@
                 <td>@Fuente.EntropiaDeLaFuente().ToString("0.##")</td>
                 <td>
                     <button class="btn btn-primary"
-                        @onclick="(()=> ShowFuente(Fuente.IdFuente))">
-                        <i class="oi oi-pencil"></i>
+                        @onclick="(()=> ShowFuente(Fuente.IdFuente))" aria-label="Editar Fuente">
+                        <i class="oi oi-pencil" aria-hidden="true"></i>
                     </button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-
-@code {
-    protected override async Task OnInitializedAsync()
-    {
-        await FuenteService.Load();
-    }
-
-    void ShowFuente(string id)
-    {
-        NavigationManager.NavigateTo($"Fuente/{id}");
-    }
-
-    void CreateNewFuente()
-    {
-        NavigationManager.NavigateTo("Fuente");
-    }
-}
