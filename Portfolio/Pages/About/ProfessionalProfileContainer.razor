@@ -14,10 +14,10 @@
         <div class="tool-logos">
             @foreach (Tool tool in ToolsWithLogoUrls.Take(4))
             {
-                <div class="tool-logo">
-                    <img src="@tool.LogoUrl" class="logo">
-                    <p>@tool.Name</p>
-                </div>
+                <figure class="tool-logo">
+                    <img src="@tool.LogoUrl" class="logo" alt="@tool.Name logo">
+                    <figcaption>@tool.Name</figcaption>
+                </figure>
             }
         </div>
     </div>
