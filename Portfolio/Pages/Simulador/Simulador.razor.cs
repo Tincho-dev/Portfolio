@@ -1,5 +1,6 @@
 ﻿using Microsoft.JSInterop;
 using Model;
+using Radzen.Blazor.Rendering;
 
 namespace Portfolio.Pages.Simulador;
 
@@ -126,7 +127,8 @@ public partial class Simulador
 
     private async Task<(string, IEnumerable<DatoEspera>, double)> SimulacionYAsignacionResultados()
     {
-        var simulacionResult = simulador.Simular((int)IngresosEsperados * 1000000, PrecioEntrada);
+        var diasDelMes = DateTime.DaysInMonth(selectedDate.Year, selectedDate.Month);
+        var simulacionResult = simulador.Simular((int)IngresosEsperados * 1000000, PrecioEntrada, diasDelMes);
 
         Respuesta = simulacionResult.Item1;
         TiemposDeEspera = simulacionResult.Item2;

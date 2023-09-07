@@ -29,11 +29,10 @@ public class FuenteService : IFuenteService
 
     public async Task<Fuente> GetSingle(string id)
     {
-
         var fuente = await _context.Fuentes.FindAsync(id);
         if (fuente == null)
         {
-            throw new Exception("No hay fuentes con este id.");
+            return new Fuente();
         }
         return fuente;
     }
