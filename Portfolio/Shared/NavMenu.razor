@@ -11,7 +11,6 @@
         </button>
     </div>
 </div>
-
 @* El contenido del menú, que se expande y colapsa *@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
@@ -30,6 +29,15 @@
                 @if (!@IconMenuActive)
                 {
                     <label>Simulador</label>
+                }
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="https://github.com/Tincho-dev/Portfolio" target="_blank">
+            <span class="oi oi-code" aria-hidden="true"></span>
+                @if (!@IconMenuActive)
+                {
+                    <label>Source</label>
                 }
             </NavLink>
         </div>
