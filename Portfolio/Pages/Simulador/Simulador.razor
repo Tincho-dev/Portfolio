@@ -8,17 +8,10 @@
 
     <div class="container-fluid text-center" style="transition: height 0.5s ease;">
         <div class="row">
-            @if (!string.IsNullOrEmpty(AlertMessage))
-            {
-                <div class="col-12">
-                    <div class="alert alert-danger" role="alert">
-                        @AlertMessage
-                    </div>
-                </div>
-            }
+            <Alert AlertMessage="@AlertMessage"/>
             <div class="col-12 col-sm-4 p-0">
+                @* <IngresoEsperadoContainer IngresosEsperados="@IngresosEsperados" IngresosEsperadosChanged="@HandleButtonClickAsync"/> *@
                 <div class="p-3 mb-3 contenedor_Datos container-fluids">
-
                     <div class="row">
                         <div class="col">
                             <h3>Ingreso esperado</h3>
@@ -37,77 +30,20 @@
                     <hr>
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn btn-primary btn-block rounded-3 w-100 botondeSimular" @onclick="HandleButtonClickAsync">Simular</button>
+                            <button class="btn btn-primary btn-block rounded-3 w-100 botondeSimular" @onclick="IngresosEsperadosChanged">Simular</button>
                             @*<button class="btn btn-primary btn-block rounded-3 w-100 botondeSimular" @onclick="HandleButtonMensualClick">Promedio Mensual</button>*@
                         </div>
                     </div>
-
                 </div>
-
                 <div class="p-1 mb-1 contenedor_Datos container-fluids" style="height:270px;">
-                    <div class="row">
-                        <div class="col">
-                            <h3>Función</h3>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <canvas id="myChart"></canvas>
-                            <p>Cantidad de Visitantes</p>
-                        </div>
-                    </div>
+                    <FunctionContainer/>
                 </div>
             </div>
             <div class="col-12 col-sm-4 p-1">
                 <div class="row" style="padding-left:15px; padding-right:15px;">
                     <div class="col contenedor_Tabla" style="height: 31rem">
-                        <RadzenHeading Size="H3" Text="Tabla Tiempos De Espera"></RadzenHeading>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <RadzenButton Icon="arrow_left" Click="@(args => ChangeDate(-1))"
-                                          Style="background-color: #1b6ec2;"></RadzenButton>
-                            <RadzenDatePicker @bind-Value="selectedDate" DateFormat="dd/MM" Change="@(args => OnDateChanged(args))" Style="margin: 0 10px; text-align: center; justify-content:center" ReadOnly></RadzenDatePicker>
-                            <RadzenButton Icon="arrow_right" Click="@(args => ChangeDate(1))"
-                                          Style="background-color:#1b6ec2;"></RadzenButton>
-                        </div>
-
-                        @if (tiemposDeEsperaFiltrados != null && tiemposDeEsperaFiltrados.Any())
-                        {
-                            var hours = tiemposDeEsperaFiltrados.First().TiempoEspera.Keys.Select(k => k.Hour).Distinct().OrderBy(h => h);
-                            <table class="table">
-                                <colgroup>
-                                    <col style="width: auto;">
-                                    <col style="width: auto;">
-                                </colgroup>
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Hora</th>
-                                        @foreach (var dato in tiemposDeEsperaFiltrados)
-                                        {
-                                            <th>@dato.Nombre (min)</th>
-                                        }
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var hour in hours)
-                                    {
-                                        <tr>
-                                            <td>@(hour + 8):00</td>
-                                            @foreach (var dato in tiemposDeEsperaFiltrados)
-                                            {
-                                                if (dato.TiempoEspera.TryGetValue(new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, hour, 0, 0), out var tiempo))
-                                                {
-                                                    <td>@tiempo.ToString("#") </td>
-                                                }
-                                                else
-                                                {
-                                                    <td>-</td>
-                                                }
-                                            }
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        }
+                        <WaitingTimeHeader selectedDate="@selectedDate" OnDateChanged="(date)=>OnDateChanged(date)"/>
+                        <WaitingTimeTable tiemposDeEsperaFiltrados="@tiemposDeEsperaFiltrados" selectedDate="@selectedDate"/>
                     </div>
                 </div>
             </div>

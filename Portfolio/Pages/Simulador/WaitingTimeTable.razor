@@ -1,0 +1,48 @@
+﻿@using Model;
+@if (tiemposDeEsperaFiltrados != null && tiemposDeEsperaFiltrados.Any())
+{
+    var hours = tiemposDeEsperaFiltrados.First().TiempoEspera.Keys.Select(k => k.Hour).Distinct().OrderBy(h => h);
+    <table class="table">
+        <colgroup>
+            <col style="width: auto;">
+            <col style="width: auto;">
+        </colgroup>
+        <thead>
+            <tr>
+                <th class="text-center">Hora</th>
+                @foreach (var dato in tiemposDeEsperaFiltrados)
+                {
+                    <th>@dato.Nombre (min)</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var hour in hours)
+            {
+                <tr>
+                    <td>@(hour + 8):00</td>
+                    @foreach (var dato in tiemposDeEsperaFiltrados)
+                    {
+                        if (dato.TiempoEspera.TryGetValue(
+                            //create a date with the selected date and the hour
+                            new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, hour, 0, 0), out var tiempo))
+                        {
+                            <td>@tiempo.ToString("#") </td>
+                        }
+                        else
+                        {
+                            <td>-</td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter]
+    public IEnumerable<DatoEspera>? tiemposDeEsperaFiltrados { get; set; }
+    [Parameter]
+    public DateTime selectedDate { get; set; }
+}

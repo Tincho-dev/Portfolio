@@ -1,0 +1,31 @@
+﻿<div class="p-3 mb-3 contenedor_Datos container-fluids">
+    <div class="row">
+        <div class="col">
+            <h3>Ingreso esperado</h3>
+            <p>Ingrese el monto en Millones de Dólares</p>
+        </div>
+    </div>
+
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-5 text-left d-flex align-items-center">
+            <p>Ingreso esperado: </p>
+        </div>
+        <div class="col-7">
+            <input @bind="IngresosEsperados" @bind:event="oninput" class="w-100" type="number" name="quantity" min="1" max="175" step="1">
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary btn-block rounded-3 w-100 botondeSimular" @onclick="IngresosEsperadosChanged">Simular</button>
+            @*<button class="btn btn-primary btn-block rounded-3 w-100 botondeSimular" @onclick="HandleButtonMensualClick">Promedio Mensual</button>*@
+        </div>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public double IngresosEsperados { get; set; }
+
+    [Parameter]
+    public EventCallback IngresosEsperadosChanged { get; set; }
+}

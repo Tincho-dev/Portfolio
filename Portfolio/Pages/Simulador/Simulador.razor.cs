@@ -40,7 +40,7 @@ public partial class Simulador
         .Average(t => t.Value) ?? 0;
     }
 
-    async void OnDateChanged(DateTime? date)
+    public async Task OnDateChanged(DateTime? date)
     {
         if (date.HasValue)
         {
@@ -67,26 +67,9 @@ public partial class Simulador
             }
         }
     }
+   
 
-    void ChangeDate(int days)
-    {
-        var newDate = selectedDate.AddDays(days);
-
-        selectedDate = days < 0 && selectedDate.Day == 1
-        ? new DateTime(selectedDate.Year, selectedDate.Month,
-            DateTime.DaysInMonth(selectedDate.Year, selectedDate.Month))
-        : (newDate.Month != selectedDate.Month
-        ? (days > 0
-            ? new DateTime(selectedDate.Year, selectedDate.Month, 1)
-            : new DateTime(selectedDate.Year, selectedDate.Month,
-                DateTime.DaysInMonth(selectedDate.Year, selectedDate.Month)))
-        : newDate);
-
-        OnDateChanged(selectedDate);
-    }
-
-
-    private async Task HandleButtonClickAsync()
+    private async Task IngresosEsperadosChanged()
     {
         Estado = "Simulando...";
         AlertMessage = string.Empty;

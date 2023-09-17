@@ -1,0 +1,33 @@
+﻿<RadzenHeading Size="H3" Text="Tabla Tiempos De Espera"></RadzenHeading>
+<div class="d-flex align-items-center justify-content-center">
+    <RadzenButton Icon="arrow_left" Click="@(args => ChangeDate(-1))"
+                  Style="background-color: #1b6ec2;"></RadzenButton>
+                      @* Change="@(args => OnDateChanged(args))" *@
+    <RadzenDatePicker @bind-Value="selectedDate" DateFormat="dd/MM"
+                      Style="margin: 0 10px; text-align: center; justify-content:center" ReadOnly></RadzenDatePicker>
+     <RadzenButton Icon="arrow_right" Click="@(args => ChangeDate(1))"
+                   Style="background-color:#1b6ec2;"></RadzenButton>
+ </div>
+ @code {
+    [Parameter]
+    public DateTime selectedDate { get; set; }
+    [Parameter]
+    public EventCallback<DateTime> OnDateChanged { get; set; }
+
+    void ChangeDate(int days)
+    {
+        var newDate = selectedDate.AddDays(days);
+
+        selectedDate = days < 0 && selectedDate.Day == 1
+        ? new DateTime(selectedDate.Year, selectedDate.Month,
+            DateTime.DaysInMonth(selectedDate.Year, selectedDate.Month))
+        : (newDate.Month != selectedDate.Month
+        ? (days > 0
+            ? new DateTime(selectedDate.Year, selectedDate.Month, 1)
+            : new DateTime(selectedDate.Year, selectedDate.Month,
+                DateTime.DaysInMonth(selectedDate.Year, selectedDate.Month)))
+        : newDate);
+        //invoke OnDateChanged from his father
+        OnDateChanged.InvokeAsync(selectedDate);
+    }
+}

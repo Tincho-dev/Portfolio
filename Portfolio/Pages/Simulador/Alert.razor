@@ -1,0 +1,13 @@
+﻿@if (!string.IsNullOrEmpty(AlertMessage))
+{
+    <div class="col-12">
+        <div class="alert alert-danger" role="alert">
+            @AlertMessage
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string AlertMessage { get; set; } = string.Empty;
+}
