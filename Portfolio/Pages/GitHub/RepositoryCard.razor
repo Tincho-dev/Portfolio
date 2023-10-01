@@ -1,0 +1,28 @@
+﻿@using Octokit;
+@using System.Reflection;
+
+@if (Repository != null)
+{
+    <RadzenAccordionItem Text="@Repository.Name" Style="align-content: center; overflow-wrap: anywhere; font-size: 4em; font-weight: bold;">
+        @if (Repository.Topics.Any())
+        {
+            <RadzenListBox TValue="Repository" Data="@Repository.Topics" Style="width: 100%; height: 100px; overflow: auto;">
+                <Template Context="topic">
+                    <RadzenListBoxItem TValue="String" Text="@topic" />
+                </Template>
+            </RadzenListBox>
+        }
+        <RadzenListBox Data="@GetFilteredProperties()" TValue="PropertyInfo">
+            <Template Context="prop">
+                <RepositoryCardContent prop="prop" Repository="@Repository" />
+            </Template>
+        </RadzenListBox>
+    </RadzenAccordionItem>
+}
+else
+{
+    <RadzenText Style="margin: 0;padding: 0;overflow-wrap: anywhere;">Repository not found</RadzenText>
+}
+
+
+

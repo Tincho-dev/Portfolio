@@ -1,0 +1,38 @@
+@using Octokit;
+@using System.Reflection;
+
+@if (prop.PropertyType == typeof(string) && prop.GetValue(Repository) is string)
+{
+    string stringValue = prop.GetValue(Repository).ToString();
+    if (stringValue != null)
+    {
+        if (stringValue.Contains("http"))
+        {
+            <RadzenLink href="@stringValue" Style="overflow-wrap: anywhere;">@stringValue</RadzenLink>
+        }
+        else
+        {
+            <RadzenText Style="margin: 0;padding: 0; overflow-wrap: anywhere;" Text="@($"{prop.Name}: {prop.GetValue(Repository)}")" />
+        }
+    }
+}
+else if (prop.PropertyType == typeof(int) && (int)prop.GetValue(Repository) > 0)
+{
+    <RadzenText Style="margin: 0;padding: 0;overflow-wrap: anywhere;" Text="@($"{prop.Name}: {prop.GetValue(Repository)}")" />
+}
+else if (prop.Name.Contains("Size"))
+{
+    <RadzenText Style="margin: 0;padding: 0;overflow-wrap: anywhere;" Text="@($"{prop.Name}: {prop.GetValue(Repository)} KB")" />
+}
+else
+{
+    <RadzenText Style="margin: 0;padding: 0;overflow-wrap: anywhere;" Text="@($"{prop.Name}: {prop.GetValue(Repository)}")" />
+}
+
+@code {
+    [Parameter]
+    public Repository? Repository { get; set; }
+
+    [Parameter]
+    public PropertyInfo prop { get; set; }
+}

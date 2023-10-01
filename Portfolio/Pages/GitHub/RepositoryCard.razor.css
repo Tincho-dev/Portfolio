@@ -1,0 +1,44 @@
+﻿/* Estilos generales para dispositivos móviles */
+section {
+    width: 90%; /* Utiliza el 100% del ancho disponible */
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #ccc;
+    text-align: center;
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+li {
+    margin: 5px 0;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+@media (min-width: 768px) {
+    section {
+        width: fit-content;
+        margin: 50px;
+        padding: 20px;
+        
+        text-align: left;
+    }
+
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 20px; /* Espacio izquierdo para la lista en dispositivos de escritorio */
+    }
+
+    li {
+        margin: 5px 10px 5px 0; /* Espacio entre elementos de la lista en dispositivos de escritorio */
+    }
+}

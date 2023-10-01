@@ -22,6 +22,8 @@ builder.Services.AddScoped<IProfessionalService, ProfessionalServiceClassic>();
 builder.Services.AddSingleton<IGeneradorService, GeneradorService>();
 builder.Services.AddSingleton<IPruebasEstadisticasService, PruebasEstadisticasService>();
 builder.Services.AddSingleton<IDistribucionesService, DistribucionesService>();
+builder.Services.AddSingleton<GitHubConfiguration>();
+builder.Services.AddScoped<IGitHubService, GitHubService>();
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<TooltipService>();

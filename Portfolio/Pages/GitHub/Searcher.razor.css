@@ -1,0 +1,13 @@
+﻿.inline-elements {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: initial;
+    margin: 10px;
+}
+
+    .inline-elements > * {
+        margin: 10px;
+        padding: 5px;
+    }

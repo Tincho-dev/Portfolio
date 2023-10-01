@@ -1,0 +1,51 @@
+﻿@using Octokit;
+@inject NavigationManager NavigationManager
+
+<RadzenRow>
+
+    @if (User != null)
+    {
+        <RadzenColumn SizeSM="12" SizeMD="6">
+            <RadzenPanel>
+            <figure>
+                <RadzenImage src="@User.AvatarUrl" alt="Avatar" 
+                    Style="width: 100px;
+                            height: 100px;
+                            border-radius: 50%;" Click="NavigateToGitHub" />
+                <figcaption>@User.Name</figcaption>
+            </figure>
+            <RadzenText> <span>UserName:</span> @User.Login</RadzenText>
+            <RadzenText> <span>Company:</span> @User.Company</RadzenText>
+            <RadzenText> <span>Location:</span> @User.Location</RadzenText>
+            <RadzenText> <span>Bio:</span> @User.Bio</RadzenText>
+            </RadzenPanel>
+        </RadzenColumn>
+        <RadzenColumn SizeSM="12" SizeMD="6">
+            <RadzenPanel>
+                <RadzenText> Email: @User.Email</RadzenText>
+                <RadzenText> Followers: @User.Followers</RadzenText>
+                <RadzenText> Following: @User.Following</RadzenText>
+                <RadzenText> Public Repositories: @User.PublicRepos</RadzenText>
+                <RadzenText> Created at: @User.CreatedAt</RadzenText>
+                <RadzenText> Blog: <RadzenLink href="@User.Blog" Style="overflow-wrap: anywhere;">@User.Blog</RadzenLink> </RadzenText>
+            </RadzenPanel>
+        </RadzenColumn>
+    }
+    else
+    {
+        <RadzenText>Cargando usuario</RadzenText>
+    }
+</RadzenRow>
+@code {
+    [Parameter]
+    public User? User { get; set; }
+    private bool Toggle { get; set; } = false;
+
+private void NavigateToGitHub()
+    {
+        if (User != null)
+        {
+            NavigationManager.NavigateTo(User.HtmlUrl);
+        }
+    }
+}

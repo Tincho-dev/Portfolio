@@ -1,0 +1,24 @@
+﻿@using Services;
+@using Octokit;
+@inject IGitHubService service
+@inject NavigationManager navigationManager
+@page "/githubprofile/"
+@page "/githubprofile/{UserName?}"
+
+<RadzenAlert Visible="@Visible" AlertStyle="AlertStyle.Danger">@Alert</RadzenAlert>
+
+<RadzenText TextStyle="TextStyle.H3">Github Profile</RadzenText>
+<Searcher />
+<UserInfo User="User" />
+<RadzenAccordion Style="margin-top: 10px; width:100%;">
+    <Items>
+        <RadzenDataList PageSize="4" WrapItems="true" AllowPaging="true"
+                        Data="@Repositories" TItem="Repository" id="profile-container">
+            <Template Context="repo">
+                <RepositoryCard Repository="repo" />
+            </Template>
+        </RadzenDataList>
+    </Items>
+</RadzenAccordion>
+
+
