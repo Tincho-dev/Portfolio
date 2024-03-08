@@ -14,18 +14,14 @@ public class GitHubService : IGitHubService
         _gitHub.Credentials = basicAuth;
     }
 
-    public async Task<Repository> GetRepository(string username, string repositoryName)
-    {
-        return await _gitHub.Repository.Get(username, repositoryName);
-    }
+    public async Task<Repository> GetRepository(string username, string repositoryName) 
+        => await _gitHub.Repository.Get(username, repositoryName);
 
     public async Task<User> GetUser(string? username)
     {
         if (string.IsNullOrEmpty(username))
             username = _gitHub.Credentials.Login;
-        //if (await UserExists(username))
             return await _gitHub.User.Get(username);
-        //return await _gitHub.User.Get(_gitHub.Credentials.Login);
     }
     public async Task<bool> UserExists(string? username)
     {
@@ -44,15 +40,9 @@ public class GitHubService : IGitHubService
         return false;
     }
 
-    public async Task<List<Repository>> GetRepositories(string? username)
-    {
-        //if (await UserExists(username))
-        //    username = _gitHub.Credentials.Login;
-        return (await _gitHub.Repository.GetAllForUser(username)).ToList();
-    }
+    public async Task<List<Repository>> GetRepositories(string? username) 
+        => (await _gitHub.Repository.GetAllForUser(username)).ToList();
 
-    public async Task<List<Repository>> GetRepositoriesFromOrganization(string organization)
-    {
-        return (await _gitHub.Repository.GetAllForOrg(organization)).ToList();
-    }
+    public async Task<List<Repository>> GetRepositoriesFromOrganization(string organization) 
+        => (await _gitHub.Repository.GetAllForOrg(organization)).ToList();
 }
