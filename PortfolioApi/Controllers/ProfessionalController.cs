@@ -21,6 +21,13 @@ namespace PortfolioApi.Controllers
         public async Task<IActionResult> Get(int id = _id)
         {
             var result = await _professionalService.GetProfessionalAsync(id);
+            if(result == null)
+                return NotFound();
+            //result.Interests = await _professionalService.GetInterestsFromProfessionalAsync(id);
+            //result.Experiences = await _professionalService.GetExperiencesFromProfessionalAsync(id);
+            //result.Trainings = await _professionalService.GetTrainingsFromProfessionalAsync(id);
+            //result.Tools = await _professionalService.GetToolsFromProfessionalAsync(id);
+            //result.Contact = await _professionalService.GetContactFromProfessionalAsync(id);
             return Ok(result);
         }
 
