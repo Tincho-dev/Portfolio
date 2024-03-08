@@ -1,34 +1,42 @@
 using Data;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Services;
-using Portfolio;
-using Radzen;
-using Controllers;
-using Model;
 
-var builder = WebAssemblyHostBuilder.CreateDefault(args);
-builder.RootComponents.Add<App>("#app");
-builder.RootComponents.Add<HeadOutlet>("head::after");
+var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<EntropiaContext>(options => options.UseInMemoryDatabase("entropiadb"));
 builder.Services.AddDbContext<ProfessionalContext>(options => options.UseInMemoryDatabase("professionaldb"));
+
 builder.Services.AddTransient<IFuenteService, FuenteService>();
-builder.Services.AddScoped<FuenteController>();
 builder.Services.AddSingleton<ISimuladorColasEsperaService, SimuladorColasEsperaService>();
 builder.Services.AddScoped<IProfessionalService, ProfessionalServiceClassic>();
 builder.Services.AddSingleton<IGeneradorService, GeneradorService>();
 builder.Services.AddSingleton<IPruebasEstadisticasService, PruebasEstadisticasService>();
 builder.Services.AddSingleton<IDistribucionesService, DistribucionesService>();
+
 builder.Services.AddSingleton<GitHubConfiguration>();
 builder.Services.AddScoped<IGitHubService, GitHubService>();
 
-builder.Services.AddScoped<DialogService>();
-builder.Services.AddScoped<NotificationService>();
-builder.Services.AddScoped<TooltipService>();
-builder.Services.AddScoped<ContextMenuService>();
+var app = builder.Build();
 
-await builder.Build().RunAsync();
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
