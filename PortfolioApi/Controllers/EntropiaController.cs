@@ -15,18 +15,13 @@ namespace PortfolioApi.Controllers
             _fuenteService = fuenteService;
         }
 
-        //Task Load();
-        [HttpGet("load")]
-        public async Task<IActionResult> Load()
-        {
-            await _fuenteService.Load();
-            return Ok();
-        }
-
         //List<Fuente> Fuentes { get; }
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
+            if (_fuenteService.Fuentes.Count == 0)
+            await _fuenteService.Load();
+
             return Ok(_fuenteService.Fuentes);
         }
 
@@ -34,6 +29,9 @@ namespace PortfolioApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSingle(string id)
         {
+            if (_fuenteService.Fuentes.Count == 0)
+                await _fuenteService.Load();
+
             var result = await _fuenteService.GetSingle(id);
             return Ok(result);
         }

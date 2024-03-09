@@ -49,11 +49,7 @@ public class FuenteService : IFuenteService
 
     public async Task Delete(string id)
     {
-        var dbFuente = await _context.Fuentes.FindAsync(id);
-        if (dbFuente == null)
-        {
-            throw new Exception("No hay Fuente con este id.");
-        }
+        var dbFuente = await _context.Fuentes.FindAsync(id) ?? throw new Exception("No hay Fuente con este id.");
         _context.Fuentes.Remove(dbFuente);
         await _context.SaveChangesAsync();
     }
