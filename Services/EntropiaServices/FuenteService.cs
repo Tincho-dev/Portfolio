@@ -25,7 +25,6 @@ public class FuenteService : IFuenteService
         }
     }
 
-
     public async Task<Fuente> GetSingle(string id)
     {
         var fuente = await _context.Fuentes.FindAsync(id);
