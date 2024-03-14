@@ -18,9 +18,14 @@
             <span class="training-icon"></span>
             <h3>@training.Accademy</h3>
         </div>
-        <div>
-            @training.YearStart - @(training.YearFinish.HasValue ? training.YearFinish.Value.ToString() : "Present")
-        </div>
+        @if(Language == Language.English)
+        {
+            <h3>@training.YearStart - @(training.YearFinish.HasValue ? training.YearFinish.Value.ToString() : "Present")</h3>
+        }
+        else if(Language == Language.Spanish)
+        {
+            <h3>@training.YearStart - @(training.YearFinish.HasValue ? training.YearFinish.Value.ToString() : "Presente")</h3>
+        }
         <div>@training.Speciality</div>
     }
 </div>

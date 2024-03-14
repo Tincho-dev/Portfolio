@@ -18,9 +18,18 @@
             <span class="experience-icon"></span>
             <span>@experience.Name.ToUpper()</span>
         </h3>
-        <h3>
-            @experience.YearStart - @(experience.YearFinish.HasValue ? experience.YearFinish.Value.ToString() : "Present")
-        </h3>
+        @if (Language == Language.English)
+        {
+            <h3>
+                @experience.YearStart - @(experience.YearFinish.HasValue ? experience.YearFinish.Value.ToString() : "Present")
+            </h3>
+        }
+        else if (Language == Language.Spanish)
+        {
+            <h3>
+                @experience.YearStart - @(experience.YearFinish.HasValue ? experience.YearFinish.Value.ToString() : "Presente")
+            </h3>
+        }
         <div>@experience.Role</div>
         <div>
             @foreach (var skill in _skills.Where(s => s.ExperienceId == experience.Id))
