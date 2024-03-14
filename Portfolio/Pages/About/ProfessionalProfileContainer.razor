@@ -4,13 +4,27 @@
 
 <div class="section">
     <div class="professional-profile">
-        <TitleComponent Title="Profile"></TitleComponent>
+        @if(Language == Language.English)
+        {
+            <TitleComponent Title="Profile"/>
+        }
+        else if(Language == Language.Spanish)
+        {
+            <TitleComponent Title="Perfil"/>
+        }
         <div class="professional-content">
             @ProfessionalProfile
         </div>
     </div>
     <div class="tools">
-        <TitleComponent Title="Tools"></TitleComponent>
+        @if(Language == Language.English)
+        {
+            <TitleComponent Title="Tools"/>
+        }
+        else if(Language == Language.Spanish)
+        {
+            <TitleComponent Title="Herramientas"/>
+        }
         <div class="tool-logos">
             @foreach (Tool tool in ToolsWithLogoUrls.Take(4))
             {

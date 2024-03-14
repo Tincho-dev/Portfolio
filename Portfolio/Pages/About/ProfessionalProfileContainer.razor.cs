@@ -6,6 +6,9 @@ namespace Portfolio.Pages.About;
 public partial class ProfessionalProfileContainer
 {
     [Parameter]
+    public Language Language { get; set; }
+
+    [Parameter]
     public string? ProfessionalProfile { get; set; }
 
     [Parameter]

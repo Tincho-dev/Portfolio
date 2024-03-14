@@ -3,7 +3,15 @@
 @using Services;
 
 <div class="experience">
-    <TitleComponent Title="Experience"></TitleComponent>
+    @if (Language == Language.English)
+    {
+        <TitleComponent Title="Experience"></TitleComponent>
+    }
+    else if (Language == Language.Spanish)
+    {
+        <TitleComponent Title="Experiencia"></TitleComponent>
+    }
+
     @foreach (var experience in _experiences.OrderByDescending(e => e.YearStart))
     {
         <h3>

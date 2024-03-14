@@ -5,6 +5,8 @@ namespace Portfolio.Pages.About;
 public partial class Interests
 {
     [Parameter]
+    public Language Language { get; set; }
+    [Parameter]
     public int ProfessionalId { get; set; }
 
     private List<Interest>? _interests;

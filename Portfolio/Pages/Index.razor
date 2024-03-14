@@ -9,8 +9,8 @@
     public int ProfessionalId { get; set; }
     protected override async  Task OnInitializedAsync()
     {
-        Professional professional = await service.GetProfessionalAsync(1);
-        ProfessionalId = professional != null ? professional.Id : 2;
+        Professional professional = await service.GetProfessionalAsync(2);
+        ProfessionalId = professional != null ? professional.Id : 1;
         base.OnInitializedAsync();
     }
 }

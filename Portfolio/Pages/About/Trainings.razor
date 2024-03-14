@@ -3,7 +3,15 @@
 @using Services;
 
 <div class="training">
-    <TitleComponent Title="Training"></TitleComponent>
+    @if (Language == Language.English)
+    {
+        <TitleComponent Title="Training"></TitleComponent>
+    }
+    else if (Language == Language.Spanish)
+    {
+        <TitleComponent Title="Formación"></TitleComponent>
+    }
+
     @foreach (var training in _trainings)
     {
         <div>

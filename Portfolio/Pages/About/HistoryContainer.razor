@@ -1,15 +1,19 @@
-﻿<div class="section">
+﻿@using Model
+<div class="section">
     <div class="right-column">
-        <Trainings ProfessionalId="@ProfessionalId"></Trainings>
-        <Interests ProfessionalId="@ProfessionalId"></Interests>
-        <AdditionalInfo ProfessionalId="@ProfessionalId"></AdditionalInfo>
+        <Trainings Language=@Language ProfessionalId="@ProfessionalId"></Trainings>
+        <Interests Language=@Language ProfessionalId="@ProfessionalId"></Interests>
+        <AdditionalInfo Language=@Language ProfessionalId="@ProfessionalId"></AdditionalInfo>
     </div>
     <div class="experiences">
-        <Experiences ProfessionalId="@ProfessionalId"></Experiences>
+        <Experiences Language=@Language ProfessionalId="@ProfessionalId"></Experiences>
     </div>
 </div>
-
+    
 @code {
+    [Parameter]
+    public Language Language { get; set; }
+
     [Parameter]
     public int ProfessionalId { get; set; }
 }

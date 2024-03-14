@@ -3,7 +3,14 @@
 @using Services;
 
 <div class="interests">
-    <TitleComponent Title="Interests"></TitleComponent>
+    @if(Language == Language.English)
+    {
+        <TitleComponent Title="Interests"></TitleComponent>
+    }
+    else if(Language == Language.Spanish)
+    {
+        <TitleComponent Title="Intereses"></TitleComponent>
+    }
     @foreach (var interest in _interests)
     {
         <div>

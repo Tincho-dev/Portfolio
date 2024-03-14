@@ -1,8 +1,11 @@
-﻿namespace Model
+﻿using System.Diagnostics.SymbolStore;
+
+namespace Model
 {
     public class Professional : EntidadBase
     {
         public int Id { get; set; }
+        public Language Language { get; set; }
         public string Role { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string ProfessionalProfile { get; set; } = string.Empty;
@@ -14,6 +17,11 @@
         public virtual Contact? Contact { get; set; }
     }
 
+    public enum Language
+    {
+        Spanish,
+        English
+    }
 
     public class Interest : EntidadBase
     {

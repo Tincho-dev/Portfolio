@@ -6,6 +6,9 @@ namespace Portfolio.Pages.About;
 public partial class Trainings
 {
     [Parameter]
+    public Language Language { get; set; }
+
+    [Parameter]
     public int ProfessionalId { get; set; }
 
     private List<Training>? _trainings;
