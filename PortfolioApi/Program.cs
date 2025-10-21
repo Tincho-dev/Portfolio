@@ -11,10 +11,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(options => options.AddPolicy(name:"AngularOriginDev",
+builder.Services.AddCors(options => options.AddPolicy(name:"ReactOrigin",
     policy =>
     {
-        policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();   
+        policy.WithOrigins(
+            "http://localhost:5173", 
+            "http://localhost:3000",
+            "https://martinlopezrubio.azurewebsites.net"
+        )
+        .AllowAnyMethod()
+        .AllowAnyHeader();   
     }));
 
 builder.Services.AddDbContext<EntropiaContext>(options => options.UseInMemoryDatabase("entropiadb"));
@@ -39,7 +45,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AngularOriginDev");   
+app.UseCors("ReactOrigin");   
 
 app.UseHttpsRedirection();
 
