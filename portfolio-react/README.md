@@ -1,73 +1,85 @@
-# React + TypeScript + Vite
+# Portfolio React Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the React frontend for the Portfolio application, migrated from Blazor WebAssembly.
 
-Currently, two official plugins are available:
+## Technology Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 18** with TypeScript
+- **Vite** for build tooling
+- **React Router** for routing
+- **Zustand** for state management
+- **Axios** for HTTP requests
+- **SCSS Modules** for styling
+- **Bootstrap 5** for UI components
 
-## React Compiler
+## Project Structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/          # Reusable components
+│   ├── Layout/         # Layout components (MainLayout, NavMenu)
+│   ├── About/          # About page components
+│   ├── Fuente/         # Fuente/Entropy components
+│   ├── GitHub/         # GitHub components
+│   ├── Simulador/      # Simulator components
+│   └── NumerosAleatorios/  # Random numbers components
+├── pages/              # Page components
+├── services/           # API service layer
+├── stores/             # Zustand state stores
+├── models/             # TypeScript interfaces
+├── config/             # Configuration files
+├── styles/             # Global styles
+└── utils/              # Utility functions
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js 20.x LTS
+- npm or yarn
+
+### Installation
+
+```bash
+npm install
 ```
+
+### Running the Development Server
+
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`
+
+### Building for Production
+
+```bash
+npm run build
+```
+
+The build output will be in the `dist` directory.
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+## Environment Variables
+
+Create `.env.development` and `.env.production` files:
+
+```
+VITE_API_URL=http://localhost:5000  # Development
+VITE_API_URL=https://martinlopezrubio.azurewebsites.net  # Production
+```
+
+## API Integration
+
+The app connects to the backend API through the service layer defined in `src/services/`. All API calls are managed through Zustand stores for state management.
+
+## Deployment
+
+The app is automatically deployed to Azure Static Web Apps when changes are pushed to the master branch via GitHub Actions.
